@@ -1,6 +1,8 @@
 # poster-generater
 海报生成器
 
+* 现成的海报配置 [在这里](https://github.com/qbhy/poster-generater/issues/1)，欢迎大家贡献海报配置。
+
 ## 安装
 ```bash
 git clone https://github.com/qbhy/poster-generater.git
