@@ -15,10 +15,12 @@ import (
 func main() {
 	r := gin.Default()
 
-	r.POST("poster", func(c *gin.Context) {
+	assetsPrefix := "/assets/"
+	r.Static(assetsPrefix, "./temp")
+	currentDir := utils.CurrentPath()
+	imgTempDir := currentDir + "temp/"
 
-		currentDir := utils.CurrentPath()
-		imgTempDir := currentDir + "temp/"
+	r.POST("poster", func(c *gin.Context) {
 
 		var imgConf config.Config
 		if err := c.ShouldBindJSON(&imgConf); err != nil {
@@ -36,7 +38,8 @@ func main() {
 		posterFileName := utils.Md5(string(jsonBytes)) + ".png"
 
 		if exists, _ := utils.PathExists(imgTempDir + posterFileName); exists {
-			c.File(imgTempDir + posterFileName)
+			c.JSON(200, gin.H{"url": c.Request.Host + assetsPrefix + posterFileName})
+			return
 		}
 
 		dc := gg.NewContext(imgConf.Width, imgConf.Height)
@@ -96,7 +99,8 @@ func main() {
 			return
 		}
 
-		c.File(imgTempDir + posterFileName)
+		c.JSON(200, gin.H{"url": c.Request.Host + assetsPrefix + posterFileName})
+		return
 	})
 
 	var port = "7877"
