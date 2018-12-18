@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/nfnt/resize"
 	"github.com/qbhy/go-utils"
-	"github.com/qbhy/poster-generater/Config"
+	"github.com/qbhy/poster-generater/config"
 	"net/http"
 	"os"
 )
