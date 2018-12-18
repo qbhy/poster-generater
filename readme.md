@@ -114,7 +114,8 @@ Postman-Token: eb879967-e34b-4144-b4fb-1dd90961e155
     "lines": []
 }------WebKitFormBoundary7MA4YWxkTrZu0gW--
 ```
-上面这个例子生成的海报如下:
+
+上面这个例子生成的海报如下:  
 ![谷粒相册](https://i.loli.net/2018/12/18/5c18a61aa88ee.png)
 
 
