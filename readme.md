@@ -17,7 +17,6 @@ go build
 ```http request
 POST /poster HTTP/1.1
 Host: 127.0.0.1:7877
-aid: lucky
 Content-Type: application/json
 cache-control: no-cache
 Postman-Token: eb879967-e34b-4144-b4fb-1dd90961e155
