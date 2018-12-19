@@ -7,12 +7,16 @@
 ```bash
 git clone https://github.com/qbhy/poster-generater.git
 cd poster-generater
+
+# 如果对代码做了改动，则需要重新编译
 go build
 ```
 
 ## 启动
 ```
 ./poster-generater {port:7877}
+# mac 请使用 ./poster-generater-mac {port:7877}
+# windows 环境请自行编译
 ```
 
 ## 使用
