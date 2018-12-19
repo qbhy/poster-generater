@@ -8,6 +8,7 @@ import (
 	"github.com/nfnt/resize"
 	"github.com/qbhy/go-utils"
 	"github.com/qbhy/poster-generater/config"
+	utils2 "github.com/qbhy/poster-generater/utils"
 	"net/http"
 	"os"
 )
@@ -69,7 +70,13 @@ func main() {
 			}
 
 			if imgInstance, err := gg.LoadImage(imgPath); err == nil {
+
 				imgInstance = resize.Resize(uint(drawImg.Width), uint(drawImg.Height), imgInstance, resize.Lanczos3)
+
+				if drawImg.BorderRadius > 0 {
+					imgInstance = utils2.Circle(imgInstance)
+				}
+
 				dc.DrawImage(imgInstance, drawImg.X, drawImg.Y)
 			} else {
 				fmt.Println("image url:", drawImg.Url)
@@ -77,16 +84,26 @@ func main() {
 		}
 
 		if len(imgConf.Texts) > 0 {
-			// 加载字体
-			_ = dc.LoadFontFace(currentDir+"/pingfangsr.ttf", 18)
 
-			// 画字体
+			// 是否已经加载过字体
+			var loadedFont = false
+			var preFontSize = 0
+
+			// 画字
 			for _, drawText := range imgConf.Texts {
+
+				if loadedFont == false {
+					_ = dc.LoadFontFace(currentDir+"/pingfangsr.ttf", float64(drawText.FontSize))
+					loadedFont = true
+					preFontSize = drawText.FontSize
+				} else if preFontSize != drawText.FontSize {
+					_ = dc.LoadFontFace(currentDir+"/pingfangsr.ttf", float64(drawText.FontSize))
+					preFontSize = drawText.FontSize
+				}
 
 				dc.SetHexColor(drawText.Color)
 				w, _ := dc.MeasureString(drawText.Text)
 				words := dc.WordWrap(drawText.Text, drawText.Width)
-				_ = dc.LoadFontFace(currentDir+"/pingfangsr.ttf", float64(drawText.FontSize))
 				for index, word := range words {
 					dc.DrawString(word, drawText.DrawX(w), float64(drawText.Y+drawText.LineHeight*index))
 				}

@@ -1,11 +1,12 @@
 package config
 
 type Image struct {
-	X      int    `json:"x"`
-	Y      int    `json:"y"`
-	Url    string `json:"url"`
-	Width  int    `json:"width"`
-	Height int    `json:"height"`
+	X            int    `json:"x"`
+	Y            int    `json:"y"`
+	Url          string `json:"url"`
+	Width        int    `json:"width"`
+	Height       int    `json:"height"`
+	BorderRadius int    `json:"borderRadius"`
 }
 
 func (img *Image) Ax() float64 {
