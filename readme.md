@@ -13,7 +13,7 @@ go build
 ```
 
 ## 启动
-```
+```bash
 ./poster-generater-linux {port:7877}
 # mac 请使用 ./poster-generater-mac {port:7877}
 # windows 环境请自行编译
