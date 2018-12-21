@@ -9,3 +9,7 @@ type Block struct {
 	BackgroundColor string `json:"backgroundColor"`
 	BorderColor     string `json:"borderColor"`
 }
+
+func (block *Block) GetZIndex() int {
+	return block.ZIndex;
+}

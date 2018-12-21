@@ -21,3 +21,7 @@ func (t *Text) DrawX(w float64) float64 {
 	}
 	return float64(t.X);
 }
+
+func (text *Text) GetZIndex() int {
+	return text.ZIndex;
+}

@@ -7,6 +7,7 @@ type Image struct {
 	Width        int    `json:"width"`
 	Height       int    `json:"height"`
 	BorderRadius int    `json:"borderRadius"`
+	ZIndex       int    `json:"zIndex"`
 }
 
 func (img *Image) Ax() float64 {
@@ -15,4 +16,8 @@ func (img *Image) Ax() float64 {
 
 func (img *Image) Ay() float64 {
 	return float64(img.Y) - float64(img.Height)*0.5;
+}
+
+func (img *Image) GetZIndex() int {
+	return img.ZIndex;
 }

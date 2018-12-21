@@ -9,3 +9,7 @@ type Line struct {
 	Width  int    `json:"width"`
 	Color  string `json:"color"`
 }
+
+func (line *Line) GetZIndex() int {
+	return line.ZIndex;
+}
