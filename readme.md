@@ -22,7 +22,7 @@ go build
 ## 使用
 ```http request
 POST /poster HTTP/1.1
-Host: 127.0.0.1:7877
+Host: 118.24.77.48:7876
 Content-Type: application/json
 cache-control: no-cache
 Postman-Token: eb879967-e34b-4144-b4fb-1dd90961e155
@@ -120,6 +120,7 @@ Postman-Token: eb879967-e34b-4144-b4fb-1dd90961e155
     "lines": []
 }------WebKitFormBoundary7MA4YWxkTrZu0gW--
 ```
+> `http://118.24.77.48:7876` 是我个人服务器地址，为了方便大家测试效果，开放给大家使用，切勿在生产环境使用。
 
 上面这个例子生成的海报如下:  
 ![谷粒相册](https://i.loli.net/2018/12/18/5c18a61aa88ee.png)
