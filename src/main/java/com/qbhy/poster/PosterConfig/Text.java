@@ -1,29 +1,33 @@
 package com.qbhy.poster.PosterConfig;
 
-import com.qbhy.poster.Contracts.Drawable;
+import com.qbhy.poster.Kernal.ColorTools;
+import com.qbhy.poster.Kernal.Drawable;
 
-public class Text implements Drawable {
+import java.awt.*;
+
+public class Text extends Drawable {
 
     @Override
-    public void draw() {
-
+    public void draw(Graphics2D gd) {
+        gd.setFont(new Font("Default", Font.PLAIN, this.getFontSize()));
+        gd.setColor(ColorTools.String2Color(this.getColor()));
+        gd.drawString(this.getText(), this.getX(), this.getY() + this.getFontSize());
     }
 
-    private Float x;//  x 坐标
-    private Float y; // y 坐标
-    private Integer fontSize; // 字体大小
+    private int x = 0;//  x 坐标
+    private int y = 0; // y 坐标
+    private Integer fontSize = 24; // 字体大小
     private Integer width; // 文本域宽度
     private Integer lineHeight; // 行高
-    private String color; // 颜色
-    private Integer zIndex = 1; //z index 值
+    private String color = "#000"; // 颜色
     private String text; // 文本内容
     private Integer opacity = 1; // 透明度
 
-    public Float getX() {
+    public int getX() {
         return x;
     }
 
-    public Float getY() {
+    public int getY() {
         return y;
     }
 
@@ -56,10 +60,5 @@ public class Text implements Drawable {
     }
 
     private String textAlign = "center"; // 文本对齐方式
-
-    @Override
-    public Integer getzIndex() {
-        return this.zIndex;
-    }
 
 }

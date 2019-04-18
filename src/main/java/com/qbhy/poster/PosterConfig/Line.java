@@ -1,30 +1,34 @@
 package com.qbhy.poster.PosterConfig;
 
-import com.qbhy.poster.Contracts.Drawable;
+import com.qbhy.poster.Contracts.DrawableInterface;
+import com.qbhy.poster.Kernal.ColorTools;
+import com.qbhy.poster.Kernal.Drawable;
 
-public class Line implements Drawable {
+import java.awt.*;
 
-    private Float startX;// 开始 x 坐标
-    private Float endX; // 结束 x 坐标
-    private Float startY; // 开始 y 坐标
-    private Float endY; // 结束 y 坐标
+public class Line extends Drawable {
+
+    private int startX;// 开始 x 坐标
+    private int endX; // 结束 x 坐标
+    private int startY; // 开始 y 坐标
+    private int endY; // 结束 y 坐标
     private Integer width; // 宽度
-    private String color; // 颜色
+    private String color = "#000000"; // 颜色
     private Integer zIndex; //z index 值
 
-    public Float getStartX() {
+    public int getStartX() {
         return startX;
     }
 
-    public Float getEndX() {
+    public int getEndX() {
         return endX;
     }
 
-    public Float getStartY() {
+    public int getStartY() {
         return startY;
     }
 
-    public Float getEndY() {
+    public int getEndY() {
         return endY;
     }
 
@@ -37,12 +41,9 @@ public class Line implements Drawable {
     }
 
     @Override
-    public Integer getzIndex() {
-        return zIndex;
-    }
-
-    @Override
-    public void draw() {
+    public void draw(Graphics2D gd) {
+        gd.setPaint(ColorTools.String2Color(this.getColor())); // 设置画笔颜色
+        gd.drawLine(this.getStartX(), this.getStartY(), this.getEndX(), this.getEndY()); // 划线
 
     }
 }

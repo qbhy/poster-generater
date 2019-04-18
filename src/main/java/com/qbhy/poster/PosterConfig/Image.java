@@ -1,8 +1,11 @@
 package com.qbhy.poster.PosterConfig;
 
-import com.qbhy.poster.Contracts.Drawable;
+import com.qbhy.poster.Contracts.DrawableInterface;
+import com.qbhy.poster.Kernal.Drawable;
 
-public class Image implements Drawable {
+import java.awt.*;
+
+public class Image extends Drawable  {
 
     /**
      * x 值
@@ -23,11 +26,6 @@ public class Image implements Drawable {
      * 高度
      */
     private Integer height;
-
-    /**
-     * z index 值
-     */
-    private Integer zIndex;
 
     /**
      * border radius
@@ -64,12 +62,7 @@ public class Image implements Drawable {
     }
 
     @Override
-    public void draw() {
+    public void draw(Graphics2D gd) {
 
-    }
-
-    @Override
-    public Integer getzIndex() {
-        return this.zIndex;
     }
 }

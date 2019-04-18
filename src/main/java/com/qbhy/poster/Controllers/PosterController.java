@@ -9,11 +9,9 @@ public class PosterController {
 
     @RequestMapping(method = RequestMethod.POST, path = "/poster")
     String create(@RequestBody Poster poster) throws Exception {
-        ObjectMapper mapper = new ObjectMapper();
+        poster.draw();
 
-        
-
-        System.out.println(mapper.writeValueAsString(poster));
+        System.out.println(poster);
         return "hello, poster generator";
     }
 }
