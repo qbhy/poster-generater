@@ -2,6 +2,7 @@ package com.qbhy.poster.PosterConfig;
 
 import com.qbhy.poster.Kernal.ColorTools;
 import com.qbhy.poster.Kernal.Drawable;
+import sun.font.FontDesignMetrics;
 
 import java.awt.*;
 
@@ -9,9 +10,23 @@ public class Text extends Drawable {
 
     @Override
     public void draw(Graphics2D gd) {
-        gd.setFont(new Font("Default", Font.PLAIN, this.getFontSize()));
+        Font font = new Font("Default", Font.PLAIN, this.getFontSize());
+        gd.setFont(font);
         gd.setColor(ColorTools.String2Color(this.getColor()));
-        gd.drawString(this.getText(), this.getX(), this.getY() + this.getFontSize());
+        int offset = 0;
+        if (textAlign.equals("center")) {
+            offset = -Text.getWordWidth(font, this.getText()) / 2;
+        }
+        gd.drawString(this.getText(), this.getX() + offset, this.getY() + this.getFontSize());
+    }
+
+    public static int getWordWidth(Font font, String content) {
+        FontDesignMetrics metrics = FontDesignMetrics.getMetrics(font);
+        int width = 0;
+        for (int i = 0; i < content.length(); i++) {
+            width += metrics.charWidth(content.charAt(i));
+        }
+        return width;
     }
 
     private int x = 0;//  x 坐标
@@ -22,6 +37,7 @@ public class Text extends Drawable {
     private String color = "#000"; // 颜色
     private String text; // 文本内容
     private Integer opacity = 1; // 透明度
+    private String textAlign = "left"; // 文本对齐方式
 
     public int getX() {
         return x;
@@ -59,6 +75,5 @@ public class Text extends Drawable {
         return textAlign;
     }
 
-    private String textAlign = "center"; // 文本对齐方式
 
 }

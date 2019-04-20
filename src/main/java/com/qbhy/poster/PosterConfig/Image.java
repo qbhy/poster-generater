@@ -1,6 +1,5 @@
 package com.qbhy.poster.PosterConfig;
 
-import com.qbhy.poster.Contracts.DrawableInterface;
 import com.qbhy.poster.Kernal.Drawable;
 
 import java.awt.*;
