@@ -111,6 +111,14 @@ public class Poster extends JsonAble {
             }
         }
 
+        if (this.images != null) {
+            // 遍历 images
+            for (Image img : this.images) {
+                System.out.println("画图片:" + img.toString());
+                img.draw(gd);
+            }
+        }
+
         gd.dispose();
         ImageIO.write(image, "PNG", new File("/Users/xiejianlai/Pictures/java.png"));
 

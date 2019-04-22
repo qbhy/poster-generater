@@ -1,11 +1,7 @@
-<<<<<<< HEAD
-*.DS_store
-/.idea
-/target
-/src/test/
-=======
 *.DS_Store
 /.idea
-/target
-/.DS_Store
->>>>>>> 6855f0a288432cde8e1f7c941c5f22767669917a
+/target/
+/src/test/
+poster.iml
+/src/main/resources/downloaded/
+/out/

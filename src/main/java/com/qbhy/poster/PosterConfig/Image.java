@@ -2,9 +2,24 @@ package com.qbhy.poster.PosterConfig;
 
 import com.qbhy.poster.Kernal.Drawable;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
 
-public class Image extends Drawable  {
+public class Image extends Drawable {
+
+    @Override
+    public void draw(Graphics2D gd) {
+        try {
+            BufferedImage image = ImageIO.read(new URL("https://cdn.uootu.com/ddd"));
+        } catch (IOException e) {
+
+        }
+
+        System.out.println(System.getProperty("user.dir"));
+    }
 
     /**
      * x 值
@@ -60,8 +75,4 @@ public class Image extends Drawable  {
         return url;
     }
 
-    @Override
-    public void draw(Graphics2D gd) {
-
-    }
 }
