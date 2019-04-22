@@ -3,6 +3,7 @@ package com.qbhy.poster.kernal;
 import com.qbhy.poster.Config;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -18,12 +19,12 @@ public class ImageLoader {
             return ImageLoader.getImageFromUrl(url);
         }
 
-        File imageFile = new File(url);
+        File imageFile = new File(Drawable.getResourcePath("template/" + url));
         if (imageFile.exists()) {
             return ImageIO.read(imageFile);
         }
 
-        return null;
+        throw new IIOException("Can't get input stream from URL!");
     }
 
     public static BufferedImage getImageFromUrl(String url) throws Exception {
