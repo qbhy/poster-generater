@@ -1,7 +1,7 @@
 package com.qbhy.poster.drawable;
 
 import com.qbhy.poster.kernal.Drawable;
-import com.qbhy.poster.kernal.ImageLoader;
+import com.qbhy.poster.kernal.ImageTools;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -12,8 +12,17 @@ public class Image extends Drawable {
     @Override
     public void draw(Graphics2D gd) {
         try {
-            BufferedImage image = ImageLoader.getImage(this.getUrl());
+            // 获取图片
+            BufferedImage image = ImageTools.getImage(this.getUrl());
 
+            // 处理圆角
+            if (borderRadius > 0) {
+                image = ImageTools.setRadius(image, borderRadius*4, 0, 0);
+            }
+
+            System.out.println("borderRadius:" + borderRadius);
+
+            // 画图
             gd.drawImage(image, this.getX(), getY(), this.getWidth(), this.getHeight(), new ImageObserver() {
                 @Override
                 public boolean imageUpdate(java.awt.Image img, int infoflags, int x, int y, int width, int height) {
@@ -21,6 +30,7 @@ public class Image extends Drawable {
                 }
             });
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("图片写入失败，请检查URL：" + this.getUrl());
         }
     }
@@ -48,7 +58,7 @@ public class Image extends Drawable {
     /**
      * border radius
      */
-    private Integer borderRadius;
+    private Integer borderRadius = 0;
 
     /**
      * url
