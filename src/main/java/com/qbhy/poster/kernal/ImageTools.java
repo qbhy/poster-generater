@@ -2,6 +2,7 @@ package com.qbhy.poster.kernal;
 
 import com.qbhy.poster.Config;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
@@ -16,10 +17,15 @@ import java.net.URL;
  *
  * @author qbhy
  */
+@Component
 public class ImageTools {
 
-    @Autowired
-    private Config config;
+    private static Config config;
+
+    @Autowired(required = true)
+    public void setConfig(Config config) {
+        ImageTools.config = config;
+    }
 
     /**
      * 获取图片
@@ -35,9 +41,10 @@ public class ImageTools {
             return getImageFromUrl(url);
         }
 
-        File imageFile = new File(Drawable.getResourcePath("template/" + url));
-        if (imageFile.exists()) {
-            return ImageIO.read(imageFile);
+        BufferedImage imageFile = config.getTemplateImage(url);
+
+        if (imageFile != null) {
+            return imageFile;
         }
 
         throw new IIOException("Can't get input stream from URL!");
@@ -53,9 +60,15 @@ public class ImageTools {
      * @throws Exception
      */
     public static BufferedImage getImageFromUrl(String url) throws Exception {
-        BufferedImage image = ImageIO.read(new URL(url));
 
+        File file = config.getDownloadedFile(url);
+        if (file != null) {
+            return ImageIO.read(file);
+        }
+
+        BufferedImage image = ImageIO.read(new URL(url));
         // 存起来
+        ImageIO.write(image, "PNG", new File(config.getDownloadPath(url)));
 
         return image;
     }

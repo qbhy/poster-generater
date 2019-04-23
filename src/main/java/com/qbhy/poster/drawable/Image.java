@@ -17,10 +17,8 @@ public class Image extends Drawable {
 
             // 处理圆角
             if (borderRadius > 0) {
-                image = ImageTools.setRadius(image, borderRadius*4, 0, 0);
+                image = ImageTools.setRadius(image, borderRadius * 4, 0, 0);
             }
-
-            System.out.println("borderRadius:" + borderRadius);
 
             // 画图
             gd.drawImage(image, this.getX(), getY(), this.getWidth(), this.getHeight(), new ImageObserver() {
@@ -30,7 +28,7 @@ public class Image extends Drawable {
                 }
             });
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             System.out.println("图片写入失败，请检查URL：" + this.getUrl());
         }
     }

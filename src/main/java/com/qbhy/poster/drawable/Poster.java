@@ -90,7 +90,6 @@ public class Poster extends JsonAble {
         if (this.blocks != null) {
             // 遍历 blocks
             for (Block block : this.blocks) {
-                System.out.println("画矩形:" + block.toString());
                 block.draw(gd);
             }
         }
@@ -98,7 +97,6 @@ public class Poster extends JsonAble {
         if (this.lines != null) {
             // 遍历 lines
             for (Line line : this.lines) {
-                System.out.println("画一根线:" + line.toString());
                 line.draw(gd);
             }
         }
@@ -106,7 +104,6 @@ public class Poster extends JsonAble {
         if (this.texts != null) {
             // 遍历 texts
             for (Text text : this.texts) {
-                System.out.println("画文字:" + text.toString());
                 text.draw(gd);
             }
         }
@@ -114,7 +111,6 @@ public class Poster extends JsonAble {
         if (this.images != null) {
             // 遍历 images
             for (Image img : this.images) {
-                System.out.println("画图片:" + img.toString());
                 img.draw(gd);
             }
         }
