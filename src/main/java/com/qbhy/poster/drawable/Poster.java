@@ -5,6 +5,7 @@ import com.qbhy.poster.kernal.Drawable;
 import com.qbhy.poster.kernal.JsonAble;
 import com.qbhy.poster.kernal.Smms.SmmsUploadResult;
 import com.qbhy.poster.kernal.Smms.SmmsUploader;
+import org.springframework.util.DigestUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -86,7 +87,7 @@ public class Poster extends JsonAble {
         indexMap.put(drawable.getZIndex(), drawables);
     }
 
-    public void draw() throws Exception {
+    public SmmsUploadResult drawAndUpload() throws Exception {
         // 初始化图片
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
@@ -142,12 +143,10 @@ public class Poster extends JsonAble {
         }
 
         gd.dispose();
-        File file = new File("/Users/xiejianlai/Pictures/java.png");
+        File file = File.createTempFile(DigestUtils.md5DigestAsHex(this.toJson().getBytes()), ".png");
+        file.deleteOnExit();
         ImageIO.write(image, "PNG", file);
 
-        SmmsUploadResult result = SmmsUploader.upload(file);
-        if (result.isSuccessful()) {
-            System.out.println("上传结果:" + result);
-        }
+        return SmmsUploader.upload(file);
     }
 }

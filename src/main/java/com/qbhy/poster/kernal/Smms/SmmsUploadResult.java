@@ -22,6 +22,15 @@ public class SmmsUploadResult extends JsonAble {
     }
 
     public boolean isSuccessful() {
-        return this.code.equals("success");
+        return this.getCode().equals("success");
+    }
+
+    /**
+     * 获取 data 里面的字段
+     * @param name
+     * @return String
+     */
+    public String get(String name) {
+        return data.get(name);
     }
 }
