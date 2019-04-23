@@ -132,8 +132,10 @@ public class Poster extends JsonAble {
         // 按 index 顺序执行绘画过程
         for (Integer index : indexMap.keySet()) {
             drawables = indexMap.get(index);
-            for (Drawable drawable : drawables) {
-                drawable.draw(gd);
+            if (drawables != null) {
+                for (Drawable drawable : drawables) {
+                    drawable.draw(gd);
+                }
             }
         }
 
