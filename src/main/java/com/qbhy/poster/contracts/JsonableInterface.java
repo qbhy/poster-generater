@@ -1,7 +1,21 @@
 package com.qbhy.poster.contracts;
 
 
-public interface JsonableInterface {
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.qbhy.poster.drawable.Image;
 
+import java.io.IOException;
+
+public interface JsonableInterface {
     String toJson();
+
+    public static final ObjectMapper mapper = new ObjectMapper();
+
+    static Object decode(String json, Class valueType) throws IOException {
+        return mapper.readValue(json, valueType);
+    }
+
+    static String encode(Object object) throws IOException {
+        return mapper.writeValueAsString(object);
+    }
 }

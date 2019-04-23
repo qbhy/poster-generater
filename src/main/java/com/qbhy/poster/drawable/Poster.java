@@ -3,6 +3,8 @@ package com.qbhy.poster.drawable;
 import com.qbhy.poster.kernal.ColorTools;
 import com.qbhy.poster.kernal.Drawable;
 import com.qbhy.poster.kernal.JsonAble;
+import com.qbhy.poster.kernal.Smms.SmmsUploadResult;
+import com.qbhy.poster.kernal.Smms.SmmsUploader;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -10,7 +12,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Poster extends JsonAble {
@@ -86,17 +87,18 @@ public class Poster extends JsonAble {
     }
 
     public void draw() throws Exception {
-
+        // 初始化图片
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
         // create graphics
         Graphics2D gd = image.createGraphics();
 
+        // 初始化画布层级 map
         Map<Integer, ArrayList<Drawable>> indexMap = new HashMap<>();
         ArrayList<Drawable> drawables;
 
+        // 如果有背景，画个矩形做背景
         if (backgroundColor != null) {
-//            gd.setBackground(ColorTools.String2Color(this.getBackgroundColor()));
             gd.setColor(ColorTools.String2Color(this.getBackgroundColor()));
             gd.fillRect(0, 0, width, height);
         }
@@ -140,8 +142,12 @@ public class Poster extends JsonAble {
         }
 
         gd.dispose();
-        ImageIO.write(image, "PNG", new File("/Users/xiejianlai/Pictures/java.png"));
+        File file = new File("/Users/xiejianlai/Pictures/java.png");
+        ImageIO.write(image, "PNG", file);
 
-        System.out.println("绘制完毕");
+        SmmsUploadResult result = SmmsUploader.upload(file);
+        if (result.isSuccessful()) {
+            System.out.println("上传结果:" + result);
+        }
     }
 }
