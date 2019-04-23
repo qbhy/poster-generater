@@ -5,7 +5,6 @@ import com.qbhy.poster.contracts.UploadResult;
 import com.qbhy.poster.contracts.Uploader;
 import okhttp3.*;
 import org.springframework.stereotype.Component;
-
 import java.io.File;
 import java.io.IOException;
 

@@ -144,10 +144,12 @@ public class Poster extends JsonAble {
         }
 
         gd.dispose();
-        File file = File.createTempFile(DigestUtils.md5DigestAsHex(this.toJson().getBytes()), ".png");
-        file.deleteOnExit();
-        ImageIO.write(image, "PNG", file);
 
-        return SmmsUploader.push(file);
+        // 创建临时文件
+        File file = File.createTempFile(DigestUtils.md5DigestAsHex(this.toJson().getBytes()), ".png");
+        ImageIO.write(image, "PNG", file); // 把文件写入图片
+        file.deleteOnExit(); // 使用完后删除文件
+
+        return SmmsUploader.push(file); // 上传图片到 smms
     }
 }
