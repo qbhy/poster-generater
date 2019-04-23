@@ -14,7 +14,12 @@ public class Text extends Drawable {
         Font font;
 
         try {
-            font = Font.createFont(Font.TRUETYPE_FONT, new File(Drawable.getResourcePath("fonts/pingfangsr.ttf"))).deriveFont((float) this.getFontSize());
+            File fontFile = new File(Drawable.getResourcePath("fonts/" + this.getFont() + ".ttf"));
+            if (fontFile.exists()) {
+                font = Font.createFont(Font.TRUETYPE_FONT, fontFile).deriveFont((float) this.getFontSize());
+            } else {
+                throw new Exception("font not found!");
+            }
         } catch (Exception e) {
             font = new Font("Default", Font.PLAIN, this.getFontSize());
         }
@@ -46,6 +51,11 @@ public class Text extends Drawable {
     private String text; // 文本内容
     private Integer opacity = 1; // 透明度
     private String textAlign = "left"; // 文本对齐方式
+    private String font = "pingfangsr"; // 字体
+
+    public String getFont() {
+        return font;
+    }
 
     public int getX() {
         return x;
