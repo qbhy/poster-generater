@@ -1,7 +1,8 @@
-package com.qbhy.poster.kernal.Smms;
+package com.qbhy.poster.kernal.smms;
 
 import com.qbhy.poster.contracts.JsonableInterface;
-import com.qbhy.poster.contracts.UploaderInterface;
+import com.qbhy.poster.contracts.UploadResult;
+import com.qbhy.poster.contracts.Uploader;
 import okhttp3.*;
 import org.springframework.stereotype.Component;
 
@@ -9,13 +10,17 @@ import java.io.File;
 import java.io.IOException;
 
 @Component
-public class SmmsUploader implements UploaderInterface {
+public class SmmsUploader implements Uploader {
 
     public static final MediaType IMAGE = MediaType.parse("application/octet-stream");
 
     public static OkHttpClient client = new OkHttpClient();
 
-    public static SmmsUploadResult upload(File file) throws IOException {
+    public static UploadResult push(File file) throws IOException {
+        return (new SmmsUploader()).upload(file);
+    }
+
+    public UploadResult upload(File file) throws IOException {
 
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
@@ -30,7 +35,7 @@ public class SmmsUploader implements UploaderInterface {
                 .build();
 
         try (Response response = client.newCall(request).execute()) {
-            return (SmmsUploadResult)JsonableInterface.decode(response.body().string(), SmmsUploadResult.class);
+            return (SmmsUploadResult) JsonableInterface.decode(response.body().string(), SmmsUploadResult.class);
         }
     }
 }

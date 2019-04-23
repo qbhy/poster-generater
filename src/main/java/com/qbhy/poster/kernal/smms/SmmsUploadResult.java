@@ -1,10 +1,11 @@
-package com.qbhy.poster.kernal.Smms;
+package com.qbhy.poster.kernal.smms;
 
+import com.qbhy.poster.contracts.UploadResult;
 import com.qbhy.poster.kernal.JsonAble;
 
 import java.util.Map;
 
-public class SmmsUploadResult extends JsonAble {
+public class SmmsUploadResult extends JsonAble implements UploadResult {
     private String code;
     private String msg;
     private Map<String, String> data;
