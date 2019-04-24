@@ -12,6 +12,7 @@
 * 支持自定义字体
 * 支持模板图片，减少网络图片加载
 * 缓存网络图片，减少网络图片加载
+* 支持企业定制化开发部署,详情请联系我
 
 96qbhy@gmail.com  
 [qbhy/poster-generater](https://github.com/qbhy/poster-generater)
