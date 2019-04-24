@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 
 /**
@@ -18,13 +19,13 @@ import java.net.URL;
  * @author qbhy
  */
 @Component
-public class ImageTools {
+public class ResourceUtils {
 
     private static Config config;
 
     @Autowired(required = true)
     public void setConfig(Config config) {
-        ImageTools.config = config;
+        ResourceUtils.config = config;
     }
 
     /**
@@ -104,6 +105,10 @@ public class ImageTools {
         }
         gs.dispose();
         return image;
+    }
+
+    public static File getFontFile(String font) throws IOException {
+        return config.getFontFile(font + ".ttf");
     }
 
     /**

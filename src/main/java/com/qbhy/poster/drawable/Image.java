@@ -1,7 +1,7 @@
 package com.qbhy.poster.drawable;
 
 import com.qbhy.poster.kernal.Drawable;
-import com.qbhy.poster.kernal.ImageTools;
+import com.qbhy.poster.kernal.ResourceUtils;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -13,11 +13,11 @@ public class Image extends Drawable {
     public void draw(Graphics2D gd) {
         try {
             // 获取图片
-            BufferedImage image = ImageTools.getImage(this.getUrl());
+            BufferedImage image = ResourceUtils.getImage(this.getUrl());
 
             // 处理圆角
             if (borderRadius > 0) {
-                image = ImageTools.setRadius(image, borderRadius * 4, 0, 0);
+                image = ResourceUtils.setRadius(image, borderRadius * 4, 0, 0);
             }
 
             // 画图

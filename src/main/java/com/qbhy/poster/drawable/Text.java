@@ -2,10 +2,10 @@ package com.qbhy.poster.drawable;
 
 import com.qbhy.poster.kernal.ColorTools;
 import com.qbhy.poster.kernal.Drawable;
+import com.qbhy.poster.kernal.ResourceUtils;
 import sun.font.FontDesignMetrics;
 
 import java.awt.*;
-import java.io.File;
 
 public class Text extends Drawable {
 
@@ -14,12 +14,7 @@ public class Text extends Drawable {
         Font font;
 
         try {
-            File fontFile = new File(Drawable.getResourcePath("fonts/" + this.getFont() + ".ttf"));
-            if (fontFile.exists()) {
-                font = Font.createFont(Font.TRUETYPE_FONT, fontFile).deriveFont((float) this.getFontSize());
-            } else {
-                throw new Exception("font not found!");
-            }
+            font = Font.createFont(Font.TRUETYPE_FONT, ResourceUtils.getFontFile(this.getFont())).deriveFont((float) this.getFontSize());
         } catch (Exception e) {
             font = new Font("Default", Font.PLAIN, this.getFontSize());
         }
