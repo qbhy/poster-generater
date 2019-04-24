@@ -23,9 +23,15 @@ public class PosterController {
     @RequestMapping(method = RequestMethod.POST, path = "/poster")
     Result drawAndUpload(@RequestBody Poster poster) {
         try {
-            Result result = poster.drawAndUpload();
+            // 从 数据中心获取结果，如果有，直接返回
+            Result result = data.find(poster.key());
+            if (result != null) {
+                return result;
+            }
+
+            // 如果没有，则画图并上传后存储到数据中心
+            result = poster.drawAndUpload();
             if (result.isSuccessful()) {
-                System.out.println(poster.key());
                 data.save(poster.key(), result);
             }
             return result;
