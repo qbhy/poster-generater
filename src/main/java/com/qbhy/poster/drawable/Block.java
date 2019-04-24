@@ -52,7 +52,7 @@ public class Block extends Drawable {
             gd.setColor(ColorTools.String2Color(this.getBackgroudColor())); // 设置画笔颜色
             gd.fillRect(this.getX(), this.getY(), this.getWidth(), this.getHeight()); // 画填充矩形
         } else if (borderWidth > 0) {
-            gd.setStroke(new BasicStroke((float) getBorderWidth()));
+            gd.setStroke(new BasicStroke((float) getBorderWidth())); // 设置画笔大小
             gd.setColor(ColorTools.String2Color(this.getBorderColor())); // 设置画笔颜色
             gd.drawRect(this.getX(), this.getY(), this.getWidth(), this.getHeight()); // 画边框矩形
         }

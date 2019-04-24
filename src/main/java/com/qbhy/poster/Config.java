@@ -1,6 +1,7 @@
 package com.qbhy.poster;
 
 import com.qbhy.poster.kernal.Drawable;
+import com.qbhy.poster.kernal.JsonAble;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -13,8 +14,7 @@ import java.io.IOException;
 
 @Configuration
 @ConfigurationProperties(prefix = "poster")
-@PropertySource(value = "classpath:poster.properties")
-public class Config {
+public class Config extends JsonAble {
 
     /**
      * 下载路径

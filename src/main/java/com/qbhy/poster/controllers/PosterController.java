@@ -1,5 +1,6 @@
 package com.qbhy.poster.controllers;
 
+import com.qbhy.poster.Config;
 import com.qbhy.poster.contracts.Data;
 import com.qbhy.poster.contracts.Result;
 import com.qbhy.poster.drawable.Poster;
@@ -12,6 +13,9 @@ public class PosterController {
 
     @Autowired
     private Data data;
+
+    @Autowired
+    private Config config;
 
     /**
      * 画图并上传
@@ -49,6 +53,8 @@ public class PosterController {
      */
     @RequestMapping(method = RequestMethod.GET, path = "/poster/{key}")
     Result find(@PathVariable String key) {
+        System.out.println(config);
+
         Result result = data.find(key);
         if (result != null) {
             return result;
