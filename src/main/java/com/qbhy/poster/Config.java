@@ -1,5 +1,6 @@
 package com.qbhy.poster;
 
+import com.qbhy.poster.contracts.JsonableInterface;
 import com.qbhy.poster.kernal.Drawable;
 import com.qbhy.poster.kernal.JsonAble;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -7,7 +8,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.util.DigestUtils;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -16,20 +16,23 @@ import java.io.IOException;
 @ConfigurationProperties(prefix = "poster")
 public class Config extends JsonAble {
 
+    // 程序当前运行目录
+    private static final String current = System.getProperty("user.dir");
+
     /**
      * 下载路径
      */
-    private String downloadPath;
+    private String downloadPath = current + "/downloads";
 
     /**
      * 模板路径
      */
-    private String templatesPath;
+    private String templatesPath = current + "/templates";
 
     /**
      * 模板路径
      */
-    private String fontsPath;
+    private String fontsPath = current + "/fonts";
 
     /**
      * 获取文件下载目录
@@ -137,6 +140,13 @@ public class Config extends JsonAble {
         throw new IOException("font not found!");
     }
 
+    /**
+     * 获取下载过的文件
+     *
+     * @param url
+     *
+     * @return File
+     */
     public File getDownloadedFile(String url) {
         File imageFile = new File(getDownloadPath(url));
 

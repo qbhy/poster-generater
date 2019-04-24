@@ -12,7 +12,7 @@ public class IndexController {
     private Config config;
 
     @RequestMapping("/")
-    String home(){
+    String home() {
         return "hello, poster";
     }
 }

@@ -28,7 +28,7 @@ public class Image extends Drawable {
                 }
             });
         } catch (Exception e) {
-//            e.printStackTrace();
+            e.printStackTrace();
             System.out.println("图片写入失败，请检查URL：" + this.getUrl());
         }
     }

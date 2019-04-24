@@ -4,7 +4,6 @@ import com.qbhy.poster.Config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
@@ -35,9 +34,9 @@ public class ResourceUtils {
      *
      * @return BufferedImage
      *
-     * @throws Exception
+     * @throws IOException
      */
-    public static BufferedImage getImage(String url) throws Exception {
+    public static BufferedImage getImage(String url) throws IOException {
         if (url.contains("://")) {
             return getImageFromUrl(url);
         }
@@ -48,7 +47,7 @@ public class ResourceUtils {
             return imageFile;
         }
 
-        throw new IIOException("Can't get input stream from URL!");
+        throw new IOException("Can't get input stream from URL!");
     }
 
     /**
@@ -58,9 +57,9 @@ public class ResourceUtils {
      *
      * @return BufferedImage
      *
-     * @throws Exception
+     * @throws IOException
      */
-    public static BufferedImage getImageFromUrl(String url) throws Exception {
+    public static BufferedImage getImageFromUrl(String url) throws IOException {
 
         File file = config.getDownloadedFile(url);
         if (file != null) {
@@ -69,7 +68,9 @@ public class ResourceUtils {
 
         BufferedImage image = ImageIO.read(new URL(url));
         // 存起来
-        ImageIO.write(image, "PNG", new File(config.getDownloadPath(url)));
+        File imageFile = new File(config.getDownloadPath(url));
+        imageFile.mkdirs();
+        ImageIO.write(image, "PNG", imageFile);
 
         return image;
     }
