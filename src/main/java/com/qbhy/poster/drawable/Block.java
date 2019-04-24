@@ -50,8 +50,9 @@ public class Block extends Drawable {
     public void draw(Graphics2D gd) {
         if (backgroudColor != null) {
             gd.setColor(ColorTools.String2Color(this.getBackgroudColor())); // 设置画笔颜色
-            gd.fillRect( this.getX(), this.getY(), this.getWidth(), this.getHeight()); // 画填充矩形
+            gd.fillRect(this.getX(), this.getY(), this.getWidth(), this.getHeight()); // 画填充矩形
         } else if (borderWidth > 0) {
+            gd.setStroke(new BasicStroke((float) getBorderWidth()));
             gd.setColor(ColorTools.String2Color(this.getBorderColor())); // 设置画笔颜色
             gd.drawRect(this.getX(), this.getY(), this.getWidth(), this.getHeight()); // 画边框矩形
         }
