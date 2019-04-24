@@ -1,7 +1,7 @@
 package com.qbhy.poster.kernal.smms;
 
 import com.qbhy.poster.contracts.JsonableInterface;
-import com.qbhy.poster.contracts.UploadResult;
+import com.qbhy.poster.contracts.Result;
 import com.qbhy.poster.contracts.Uploader;
 import okhttp3.*;
 import org.springframework.stereotype.Component;
@@ -15,11 +15,11 @@ public class SmmsUploader implements Uploader {
 
     public static OkHttpClient client = new OkHttpClient();
 
-    public static UploadResult push(File file) throws IOException {
+    public static Result push(File file) throws IOException {
         return (new SmmsUploader()).upload(file);
     }
 
-    public UploadResult upload(File file) throws IOException {
+    public Result upload(File file) throws IOException {
 
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)

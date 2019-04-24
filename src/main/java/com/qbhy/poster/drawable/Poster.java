@@ -1,10 +1,9 @@
 package com.qbhy.poster.drawable;
 
-import com.qbhy.poster.contracts.UploadResult;
+import com.qbhy.poster.contracts.Result;
 import com.qbhy.poster.kernal.ColorTools;
 import com.qbhy.poster.kernal.Drawable;
 import com.qbhy.poster.kernal.JsonAble;
-import com.qbhy.poster.kernal.smms.SmmsUploadResult;
 import com.qbhy.poster.kernal.smms.SmmsUploader;
 import org.springframework.util.DigestUtils;
 
@@ -88,7 +87,7 @@ public class Poster extends JsonAble {
         indexMap.put(drawable.getZIndex(), drawables);
     }
 
-    public UploadResult drawAndUpload() throws Exception {
+    public Result drawAndUpload() throws Exception {
         // 初始化图片
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
@@ -151,5 +150,14 @@ public class Poster extends JsonAble {
         file.deleteOnExit(); // 使用完后删除文件
 
         return SmmsUploader.push(file); // 上传图片到 smms
+    }
+
+    /**
+     * 获取key
+     *
+     * @return String
+     */
+    public String key() {
+        return DigestUtils.md5DigestAsHex(this.toJson().getBytes());
     }
 }

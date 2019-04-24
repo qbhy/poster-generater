@@ -1,15 +1,15 @@
 package com.qbhy.poster.kernal;
 
-import com.qbhy.poster.contracts.UploadResult;
+import com.qbhy.poster.contracts.Result;
 
 import java.util.Map;
 
-public class BlankUploadResult extends JsonAble implements UploadResult {
+public class BlankResult extends JsonAble implements Result {
     private String code;
     private String msg;
     private Map<String, String> data;
 
-    public BlankUploadResult(String code, String msg) {
+    public BlankResult(String code, String msg) {
         this.code = code;
         this.msg = msg;
     }
@@ -27,7 +27,7 @@ public class BlankUploadResult extends JsonAble implements UploadResult {
     }
 
     public boolean isSuccessful() {
-        return this.getCode().equals("success");
+        return this.getCode().equals(Result.SUCCESSFUL);
     }
 
     /**

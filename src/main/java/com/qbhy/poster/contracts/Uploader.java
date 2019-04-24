@@ -4,5 +4,5 @@ import java.io.File;
 import java.io.IOException;
 
 public interface Uploader {
-    public UploadResult upload(File file) throws IOException;
+    public Result upload(File file) throws IOException;
 }

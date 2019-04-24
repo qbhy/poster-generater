@@ -1,11 +1,11 @@
 package com.qbhy.poster.kernal.smms;
 
-import com.qbhy.poster.contracts.UploadResult;
+import com.qbhy.poster.contracts.Result;
 import com.qbhy.poster.kernal.JsonAble;
 
 import java.util.Map;
 
-public class SmmsUploadResult extends JsonAble implements UploadResult {
+public class SmmsUploadResult extends JsonAble implements Result {
     private String code;
     private String msg;
     private Map<String, String> data;
@@ -23,7 +23,7 @@ public class SmmsUploadResult extends JsonAble implements UploadResult {
     }
 
     public boolean isSuccessful() {
-        return this.getCode().equals("success");
+        return this.getCode().equals(Result.SUCCESSFUL);
     }
 
     /**
