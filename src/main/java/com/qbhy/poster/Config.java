@@ -1,6 +1,5 @@
 package com.qbhy.poster;
 
-import com.qbhy.poster.contracts.JsonableInterface;
 import com.qbhy.poster.kernal.Drawable;
 import com.qbhy.poster.kernal.JsonAble;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -104,7 +103,7 @@ public class Config extends JsonAble {
         }
 
         // 找不到的话从默认模板中找
-        imageFile = new File(Drawable.getResourcePath("template/" + imageName));
+        imageFile = new File(Drawable.getResourcePath("templates/" + imageName));
         if (imageFile.exists()) {
             return ImageIO.read(imageFile);
         }
