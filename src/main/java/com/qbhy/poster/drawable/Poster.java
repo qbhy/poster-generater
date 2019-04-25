@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -87,7 +88,7 @@ public class Poster extends JsonAble {
         indexMap.put(drawable.getZIndex(), drawables);
     }
 
-    public Result drawAndUpload() throws Exception {
+    public Result drawAndUpload() throws IOException {
         // 初始化图片
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 

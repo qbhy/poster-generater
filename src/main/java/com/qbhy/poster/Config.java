@@ -2,6 +2,7 @@ package com.qbhy.poster;
 
 import com.qbhy.poster.kernal.Drawable;
 import com.qbhy.poster.kernal.JsonAble;
+import com.qbhy.poster.kernal.ResourceUtils;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.DigestUtils;
@@ -103,7 +104,7 @@ public class Config extends JsonAble {
         }
 
         // 找不到的话从默认模板中找
-        imageFile = new File(Drawable.getResourcePath("templates/" + imageName));
+        imageFile = new File(ResourceUtils.getResourcePath("templates/" + imageName));
         if (imageFile.exists()) {
             return ImageIO.read(imageFile);
         }
@@ -130,7 +131,7 @@ public class Config extends JsonAble {
         }
 
         // 找不到的话从默认字体库中找
-        fontFile = new File(Drawable.getResourcePath("fonts/" + font));
+        fontFile = new File(ResourceUtils.getResourcePath("fonts/" + font));
         if (fontFile.exists()) {
             return fontFile;
         }

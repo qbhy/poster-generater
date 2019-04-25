@@ -6,31 +6,27 @@ import com.qbhy.poster.kernal.ResourceUtils;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
+import java.io.IOException;
 
 public class Image extends Drawable {
 
     @Override
-    public void draw(Graphics2D gd) {
-        try {
-            // 获取图片
-            BufferedImage image = ResourceUtils.getImage(this.getUrl());
+    public void draw(Graphics2D gd) throws IOException {
+        // 获取图片
+        BufferedImage image = ResourceUtils.getImage(this.getUrl());
 
-            // 处理圆角
-            if (borderRadius > 0) {
-                image = ResourceUtils.setRadius(image, borderRadius * 4, 0, 0);
-            }
-
-            // 画图
-            gd.drawImage(image, this.getX(), getY(), this.getWidth(), this.getHeight(), new ImageObserver() {
-                @Override
-                public boolean imageUpdate(java.awt.Image img, int infoflags, int x, int y, int width, int height) {
-                    return false;
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("图片写入失败，请检查URL：" + this.getUrl());
+        // 处理圆角
+        if (borderRadius > 0) {
+            image = ResourceUtils.setRadius(image, borderRadius * 4, 0, 0);
         }
+
+        // 画图
+        gd.drawImage(image, this.getX(), getY(), this.getWidth(), this.getHeight(), new ImageObserver() {
+            @Override
+            public boolean imageUpdate(java.awt.Image img, int infoflags, int x, int y, int width, int height) {
+                return false;
+            }
+        });
     }
 
     /**

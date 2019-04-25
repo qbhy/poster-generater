@@ -6,17 +6,18 @@ import com.qbhy.poster.kernal.ResourceUtils;
 import sun.font.FontDesignMetrics;
 
 import java.awt.*;
+import java.io.IOException;
 
 public class Text extends Drawable {
 
     @Override
-    public void draw(Graphics2D gd) {
+    public void draw(Graphics2D gd) throws IOException {
         Font font;
 
         try {
             font = Font.createFont(Font.TRUETYPE_FONT, ResourceUtils.getFontFile(this.getFont())).deriveFont((float) this.getFontSize());
         } catch (Exception e) {
-            font = new Font("Default", Font.PLAIN, this.getFontSize());
+            throw new IOException("font" + getFont() + " error!");
         }
 
         gd.setFont(font);

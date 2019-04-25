@@ -4,6 +4,7 @@ import com.qbhy.poster.kernal.ColorTools;
 import com.qbhy.poster.kernal.Drawable;
 
 import java.awt.*;
+import java.io.IOException;
 
 public class Line extends Drawable {
 
@@ -40,7 +41,7 @@ public class Line extends Drawable {
     }
 
     @Override
-    public void draw(Graphics2D gd) {
+    public void draw(Graphics2D gd) throws IOException {
         gd.setStroke(new BasicStroke((float) getWidth()));
         gd.setPaint(ColorTools.String2Color(this.getColor())); // 设置画笔颜色
         gd.drawLine(this.getStartX(), this.getStartY(), this.getEndX(), this.getEndY()); // 划线

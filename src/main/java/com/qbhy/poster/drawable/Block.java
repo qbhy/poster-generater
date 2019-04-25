@@ -4,6 +4,7 @@ import com.qbhy.poster.kernal.ColorTools;
 import com.qbhy.poster.kernal.Drawable;
 
 import java.awt.*;
+import java.io.IOException;
 
 public class Block extends Drawable {
 
@@ -47,7 +48,7 @@ public class Block extends Drawable {
     }
 
     @Override
-    public void draw(Graphics2D gd) {
+    public void draw(Graphics2D gd) throws IOException {
         if (backgroudColor != null) {
             gd.setColor(ColorTools.String2Color(this.getBackgroudColor())); // 设置画笔颜色
             gd.fillRect(this.getX(), this.getY(), this.getWidth(), this.getHeight()); // 画填充矩形

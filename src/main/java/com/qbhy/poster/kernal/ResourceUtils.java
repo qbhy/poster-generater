@@ -144,4 +144,13 @@ public class ResourceUtils {
         gs.dispose();
         return image;
     }
+
+    public static String getResourcePath(String resourceName) throws IOException {
+        URL url = Drawable.class.getClassLoader().getResource(resourceName);
+        if (url != null) {
+            return url.getPath();
+        }
+
+        throw new IOException(resourceName + " resource not found!");
+    }
 }
