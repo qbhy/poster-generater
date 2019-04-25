@@ -117,7 +117,7 @@ public class ResourceUtils {
      *
      * @param srcImage
      *
-     * @return
+     * @return BufferedImage
      */
     public static BufferedImage setRadius(BufferedImage srcImage) {
         int radius = (srcImage.getWidth() + srcImage.getHeight()) / 6;
@@ -130,7 +130,7 @@ public class ResourceUtils {
      * @param srcImage
      * @param radius
      *
-     * @return
+     * @return BufferedImage
      */
     public static BufferedImage setClip(BufferedImage srcImage, int radius) {
         int width = srcImage.getWidth();
@@ -145,6 +145,15 @@ public class ResourceUtils {
         return image;
     }
 
+    /**
+     * 获取资源路径
+     *
+     * @param resourceName
+     *
+     * @return String
+     *
+     * @throws IOException
+     */
     public static String getResourcePath(String resourceName) throws IOException {
         URL url = Drawable.class.getClassLoader().getResource(resourceName);
         if (url != null) {

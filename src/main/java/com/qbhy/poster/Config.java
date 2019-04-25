@@ -137,7 +137,7 @@ public class Config extends JsonAble {
         }
 
         // 实在找不到就抛异常
-        throw new IOException("font not found!");
+        throw new IOException(font + " font not found!");
     }
 
     /**

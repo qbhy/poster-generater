@@ -17,7 +17,7 @@ public class Text extends Drawable {
         try {
             font = Font.createFont(Font.TRUETYPE_FONT, ResourceUtils.getFontFile(this.getFont())).deriveFont((float) this.getFontSize());
         } catch (Exception e) {
-            throw new IOException("font" + getFont() + " error!");
+            throw new IOException("font " + getFont() + " error!");
         }
 
         gd.setFont(font);
