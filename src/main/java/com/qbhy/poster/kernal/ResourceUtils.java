@@ -22,7 +22,7 @@ public class ResourceUtils {
 
     private static Config config;
 
-    @Autowired(required = true)
+    @Autowired
     public void setConfig(Config config) {
         ResourceUtils.config = config;
     }
