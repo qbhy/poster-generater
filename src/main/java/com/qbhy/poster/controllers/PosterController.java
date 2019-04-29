@@ -36,6 +36,7 @@ public class PosterController {
             }
             return result;
         } catch (Exception e) {
+            e.printStackTrace();
             return new BlankResult("error", e.getMessage());
         }
     }

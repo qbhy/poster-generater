@@ -16,7 +16,6 @@ public class Line extends Drawable {
     private int endY; // 结束 y 坐标
     private int width = 1; // 宽度
     private String color = "#000000"; // 颜色
-    private Integer zIndex; //z index 值
 
     @Override
     public void draw(Graphics2D gd) throws IOException {

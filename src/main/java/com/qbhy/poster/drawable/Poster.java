@@ -3,8 +3,8 @@ package com.qbhy.poster.drawable;
 import com.qbhy.poster.contracts.Result;
 import com.qbhy.poster.kernal.ColorTools;
 import com.qbhy.poster.kernal.Drawable;
-import com.qbhy.poster.kernal.JsonAble;
 import com.qbhy.poster.kernal.smms.SmmsUploader;
+import lombok.Data;
 import org.springframework.util.DigestUtils;
 
 import javax.imageio.ImageIO;
@@ -16,7 +16,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Poster extends JsonAble {
+@Data
+public class Poster {
 
     /**
      * 画布宽度
@@ -119,7 +120,7 @@ public class Poster extends JsonAble {
         gd.dispose();
 
         // 创建临时文件
-        File file = File.createTempFile(DigestUtils.md5DigestAsHex(this.toJson().getBytes()), ".png");
+        File file = File.createTempFile(DigestUtils.md5DigestAsHex(this.toString().getBytes()), ".png");
         ImageIO.write(image, "PNG", file); // 把文件写入图片
         file.deleteOnExit(); // 使用完后删除文件
 
@@ -132,6 +133,6 @@ public class Poster extends JsonAble {
      * @return String
      */
     public String key() {
-        return DigestUtils.md5DigestAsHex(this.toJson().getBytes());
+        return DigestUtils.md5DigestAsHex(this.toString().getBytes());
     }
 }
