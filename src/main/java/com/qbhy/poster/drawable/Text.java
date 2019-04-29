@@ -3,30 +3,31 @@ package com.qbhy.poster.drawable;
 import com.qbhy.poster.kernal.ColorTools;
 import com.qbhy.poster.kernal.Drawable;
 import com.qbhy.poster.kernal.ResourceUtils;
+import lombok.Data;
 import sun.font.FontDesignMetrics;
-
 import java.awt.*;
 import java.io.IOException;
 
+@Data
 public class Text extends Drawable {
 
     @Override
     public void draw(Graphics2D gd) throws IOException {
-        Font font;
+        Font drawFont;
 
         try {
-            font = Font.createFont(Font.TRUETYPE_FONT, ResourceUtils.getFontFile(this.getFont())).deriveFont((float) this.getFontSize());
+            drawFont = Font.createFont(Font.TRUETYPE_FONT, ResourceUtils.getFontFile(font)).deriveFont((float) fontSize);
         } catch (Exception e) {
-            font = new Font("Default", Font.PLAIN, this.getFontSize());
+            drawFont = new Font("Default", Font.PLAIN, fontSize);
         }
 
-        gd.setFont(font);
-        gd.setColor(ColorTools.String2Color(this.getColor()));
+        gd.setFont(drawFont);
+        gd.setColor(ColorTools.String2Color(color));
         int offset = 0;
         if (textAlign.equals("center")) {
-            offset = -Text.getWordWidth(font, this.getText()) / 2;
+            offset = -Text.getWordWidth(drawFont, text) / 2;
         }
-        gd.drawString(this.getText(), this.getX() + offset, this.getY() + this.getFontSize());
+        gd.drawString(text, x + offset, y + fontSize);
     }
 
     public static int getWordWidth(Font font, String content) {
@@ -48,46 +49,5 @@ public class Text extends Drawable {
     private Integer opacity = 1; // 透明度
     private String textAlign = "left"; // 文本对齐方式
     private String font = "pingfangsr"; // 字体
-
-    public String getFont() {
-        return font;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public Integer getFontSize() {
-        return fontSize;
-    }
-
-    public Integer getWidth() {
-        return width;
-    }
-
-    public Integer getLineHeight() {
-        return lineHeight;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public Integer getOpacity() {
-        return opacity;
-    }
-
-    public String getTextAlign() {
-        return textAlign;
-    }
-
 
 }

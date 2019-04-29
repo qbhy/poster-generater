@@ -2,10 +2,12 @@ package com.qbhy.poster.drawable;
 
 import com.qbhy.poster.kernal.ColorTools;
 import com.qbhy.poster.kernal.Drawable;
+import lombok.Data;
 
 import java.awt.*;
 import java.io.IOException;
 
+@Data
 public class Line extends Drawable {
 
     private int startX;// 开始 x 坐标
@@ -16,35 +18,12 @@ public class Line extends Drawable {
     private String color = "#000000"; // 颜色
     private Integer zIndex; //z index 值
 
-    public int getStartX() {
-        return startX;
-    }
-
-    public int getEndX() {
-        return endX;
-    }
-
-    public int getStartY() {
-        return startY;
-    }
-
-    public int getEndY() {
-        return endY;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
     @Override
     public void draw(Graphics2D gd) throws IOException {
-        gd.setStroke(new BasicStroke((float) getWidth()));
-        gd.setPaint(ColorTools.String2Color(this.getColor())); // 设置画笔颜色
-        gd.drawLine(this.getStartX(), this.getStartY(), this.getEndX(), this.getEndY()); // 划线
-
+        if (width > 0) {
+            gd.setStroke(new BasicStroke((float) width));
+            gd.setPaint(ColorTools.String2Color(color)); // 设置画笔颜色
+            gd.drawLine(startX, startY, endX, endY); // 划线
+        }
     }
 }

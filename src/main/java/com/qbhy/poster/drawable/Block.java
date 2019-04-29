@@ -2,10 +2,12 @@ package com.qbhy.poster.drawable;
 
 import com.qbhy.poster.kernal.ColorTools;
 import com.qbhy.poster.kernal.Drawable;
+import lombok.Data;
 
 import java.awt.*;
 import java.io.IOException;
 
+@Data
 public class Block extends Drawable {
 
     /**
@@ -43,45 +45,17 @@ public class Block extends Drawable {
      */
     private int borderWidth = 0;
 
-    public int getBorderWidth() {
-        return borderWidth;
-    }
-
     @Override
     public void draw(Graphics2D gd) throws IOException {
         if (backgroudColor != null) {
-            gd.setColor(ColorTools.String2Color(this.getBackgroudColor())); // 设置画笔颜色
-            gd.fillRect(this.getX(), this.getY(), this.getWidth(), this.getHeight()); // 画填充矩形
+            gd.setColor(ColorTools.String2Color(backgroudColor)); // 设置画笔颜色
+            gd.fillRect(x, y, width, height); // 画填充矩形
         } else if (borderWidth > 0) {
-            gd.setStroke(new BasicStroke((float) getBorderWidth())); // 设置画笔大小
-            gd.setColor(ColorTools.String2Color(this.getBorderColor())); // 设置画笔颜色
-            gd.drawRect(this.getX(), this.getY(), this.getWidth(), this.getHeight()); // 画边框矩形
+            gd.setStroke(new BasicStroke((float) borderWidth)); // 设置画笔大小
+            gd.setColor(ColorTools.String2Color(borderColor)); // 设置画笔颜色
+            gd.drawRect(x, y, width, height); // 画边框矩形
         }
     }
 
-
-    public Integer getX() {
-        return x;
-    }
-
-    public Integer getY() {
-        return y;
-    }
-
-    public Integer getWidth() {
-        return width;
-    }
-
-    public Integer getHeight() {
-        return height;
-    }
-
-    public String getBorderColor() {
-        return borderColor;
-    }
-
-    public String getBackgroudColor() {
-        return backgroudColor;
-    }
 
 }

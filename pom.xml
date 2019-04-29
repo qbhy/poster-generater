@@ -64,6 +64,13 @@
             <artifactId>okhttp</artifactId>
             <version>3.14.1</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.6</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <!-- Package as an executable jar -->

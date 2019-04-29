@@ -2,18 +2,19 @@ package com.qbhy.poster.drawable;
 
 import com.qbhy.poster.kernal.Drawable;
 import com.qbhy.poster.kernal.ResourceUtils;
-
+import lombok.Data;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.IOException;
 
+@Data
 public class Image extends Drawable {
 
     @Override
     public void draw(Graphics2D gd) throws IOException {
         // 获取图片
-        BufferedImage image = ResourceUtils.getImage(this.getUrl());
+        BufferedImage image = ResourceUtils.getImage(url);
 
         // 处理圆角
         if (borderRadius > 0) {
@@ -21,7 +22,7 @@ public class Image extends Drawable {
         }
 
         // 画图
-        gd.drawImage(image, this.getX(), getY(), this.getWidth(), this.getHeight(), new ImageObserver() {
+        gd.drawImage(image, x, y, width, height, new ImageObserver() {
             @Override
             public boolean imageUpdate(java.awt.Image img, int infoflags, int x, int y, int width, int height) {
                 return false;
@@ -58,29 +59,5 @@ public class Image extends Drawable {
      * url
      */
     private String url;
-
-    public Integer getX() {
-        return x;
-    }
-
-    public Integer getY() {
-        return y;
-    }
-
-    public Integer getWidth() {
-        return width;
-    }
-
-    public Integer getHeight() {
-        return height;
-    }
-
-    public Integer getBorderRadius() {
-        return borderRadius;
-    }
-
-    public String getUrl() {
-        return url;
-    }
 
 }

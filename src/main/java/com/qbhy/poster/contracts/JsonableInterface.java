@@ -1,8 +1,6 @@
 package com.qbhy.poster.contracts;
 
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.qbhy.poster.drawable.Image;
 
 import java.io.IOException;
 

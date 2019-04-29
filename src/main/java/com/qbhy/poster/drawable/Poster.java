@@ -31,7 +31,7 @@ public class Poster extends JsonAble {
     /**
      * 画布背景颜色
      */
-    private String backgroundColor;
+    private String backgroundColor = null;
 
     /**
      * 文本列表
@@ -53,33 +53,6 @@ public class Poster extends JsonAble {
      */
     private ArrayList<Line> lines;
 
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public String getBackgroundColor() {
-        return backgroundColor;
-    }
-
-    public ArrayList<Text> getTexts() {
-        return texts;
-    }
-
-    public ArrayList<Image> getImages() {
-        return images;
-    }
-
-    public ArrayList<Block> getBlocks() {
-        return blocks;
-    }
-
-    public ArrayList<Line> getLines() {
-        return lines;
-    }
 
     protected void push2map(Map<Integer, ArrayList<Drawable>> indexMap, Drawable drawable) {
         ArrayList<Drawable> drawables = indexMap.get(drawable.getZIndex());
@@ -101,7 +74,7 @@ public class Poster extends JsonAble {
 
         // 如果有背景，画个矩形做背景
         if (backgroundColor != null) {
-            gd.setColor(ColorTools.String2Color(this.getBackgroundColor()));
+            gd.setColor(ColorTools.String2Color(backgroundColor));
             gd.fillRect(0, 0, width, height);
         }
 
