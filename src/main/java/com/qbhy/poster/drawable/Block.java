@@ -53,11 +53,7 @@ public class Block extends Drawable {
     @Override
     public void draw(Graphics2D gd) {
 
-        Integer offset = 0;
-
-        if (!boxSizing.equals("borderBox")) {
-            offset = borderWidth;
-        }
+        int offset = boxSizing.equals("borderBox") ? 0 : borderWidth;
 
         if (backgroudColor != null) {
             gd.setColor(ColorTools.String2Color(backgroudColor)); // 设置画笔颜色

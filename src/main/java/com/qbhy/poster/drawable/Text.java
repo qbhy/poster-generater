@@ -5,6 +5,7 @@ import com.qbhy.poster.kernal.Drawable;
 import com.qbhy.poster.kernal.ResourceUtils;
 import lombok.Data;
 import sun.font.FontDesignMetrics;
+
 import java.awt.*;
 import java.io.IOException;
 
@@ -30,7 +31,7 @@ public class Text extends Drawable {
         gd.drawString(text, x + offset, y + fontSize);
     }
 
-    public static int getWordWidth(Font font, String content) {
+    private static int getWordWidth(Font font, String content) {
         FontDesignMetrics metrics = FontDesignMetrics.getMetrics(font);
         int width = 0;
         for (int i = 0; i < content.length(); i++) {
