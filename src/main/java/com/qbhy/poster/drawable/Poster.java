@@ -62,7 +62,7 @@ public class Poster {
         indexMap.put(drawable.getZIndex(), drawables);
     }
 
-    public Result drawAndUpload() throws IOException {
+    public File draw() throws IOException {
         // 初始化图片
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
@@ -120,11 +120,16 @@ public class Poster {
         gd.dispose();
 
         // 创建临时文件
-        File file = File.createTempFile(DigestUtils.md5DigestAsHex(this.toString().getBytes()), ".png");
+        File file = File.createTempFile(this.key(), ".png");
         ImageIO.write(image, "PNG", file); // 把文件写入图片
         file.deleteOnExit(); // 使用完后删除文件
 
-        return SmmsUploader.push(file); // 上传图片到 smms
+        return file;
+    }
+
+    public Result drawAndUpload() throws IOException
+    {
+        return SmmsUploader.push(this.draw()); // 上传图片到 smms
     }
 
     /**

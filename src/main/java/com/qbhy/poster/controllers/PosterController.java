@@ -2,6 +2,7 @@ package com.qbhy.poster.controllers;
 
 import com.qbhy.poster.contracts.Data;
 import com.qbhy.poster.contracts.Result;
+import com.qbhy.poster.contracts.Uploader;
 import com.qbhy.poster.drawable.Poster;
 import com.qbhy.poster.kernal.BlankResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,9 @@ public class PosterController {
 
     @Autowired
     private Data data;
+
+    @Autowired
+    private Uploader uploader;
 
     /**
      * 画图并上传
@@ -30,7 +34,7 @@ public class PosterController {
             }
 
             // 如果没有，则画图并上传后存储到数据中心
-            result = poster.drawAndUpload();
+            result = uploader.upload(poster.draw());
             if (result.isSuccessful()) {
                 data.save(poster.key(), result);
             }
