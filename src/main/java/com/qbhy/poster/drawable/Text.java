@@ -107,6 +107,13 @@ public class Text extends Drawable {
         return lineIndex;
     }
 
+    /**
+     * 获取文本所占宽度
+     *
+     * @param font    字体
+     * @param content 文本内容
+     * @return int 返回宽度
+     */
     private static int getWordWidth(Font font, String content) {
         FontDesignMetrics metrics = FontDesignMetrics.getMetrics(font);
         int width = 0;
