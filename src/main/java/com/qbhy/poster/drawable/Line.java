@@ -18,7 +18,7 @@ public class Line extends Drawable {
     private String color = "#000000"; // 颜色
 
     @Override
-    public void draw(Graphics2D gd) throws IOException {
+    public void draw(Graphics2D gd, int posterWidth, int posterHeight) throws IOException {
         if (width > 0) {
             gd.setStroke(new BasicStroke((float) width));
             gd.setPaint(ColorTools.String2Color(color)); // 设置画笔颜色

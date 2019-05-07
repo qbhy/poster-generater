@@ -13,7 +13,7 @@ import java.io.IOException;
 public class Image extends Drawable {
 
     @Override
-    public void draw(Graphics2D gd) throws IOException {
+    public void draw(Graphics2D gd, int posterWidth, int posterHeight) throws IOException {
         // 获取图片
         BufferedImage image = ResourceUtils.getImage(url);
 
@@ -40,10 +40,10 @@ public class Image extends Drawable {
     /**
      * 缩放图片
      *
-     * @param image
-     * @param width
-     * @param height
-     * @return
+     * @param image 需要缩放的图片
+     * @param width 宽
+     * @param height 高
+     * @return BufferedImage
      */
     private static BufferedImage resize(BufferedImage image, int width, int height) {
         java.awt.Image img = image.getScaledInstance(width, height, java.awt.Image.SCALE_FAST);

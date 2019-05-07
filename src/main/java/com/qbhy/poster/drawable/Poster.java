@@ -62,6 +62,12 @@ public class Poster {
         indexMap.put(drawable.getZIndex(), drawables);
     }
 
+    /**
+     * 绘制图片
+     *
+     * @return File
+     * @throws IOException
+     */
     public File draw() throws IOException {
         // 初始化图片
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
@@ -112,7 +118,7 @@ public class Poster {
             drawables = indexMap.get(index);
             if (drawables != null) {
                 for (Drawable drawable : drawables) {
-                    drawable.draw(gd);
+                    drawable.draw(gd, width, height);
                 }
             }
         }
@@ -127,8 +133,13 @@ public class Poster {
         return file;
     }
 
-    public Result drawAndUpload() throws IOException
-    {
+    /**
+     * 绘制图片并且上传到 sm.ms
+     *
+     * @return
+     * @throws IOException
+     */
+    public Result drawAndUpload() throws IOException {
         return SmmsUploader.push(this.draw()); // 上传图片到 smms
     }
 

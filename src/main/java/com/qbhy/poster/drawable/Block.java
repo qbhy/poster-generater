@@ -51,7 +51,7 @@ public class Block extends Drawable {
     private String boxSizing = "borderBox";
 
     @Override
-    public void draw(Graphics2D gd) {
+    public void draw(Graphics2D gd, int posterWidth, int posterHeight) {
 
         int offset = boxSizing.equals("borderBox") ? 0 : borderWidth;
 
