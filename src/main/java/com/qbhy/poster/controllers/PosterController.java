@@ -6,7 +6,10 @@ import com.qbhy.poster.contracts.Uploader;
 import com.qbhy.poster.drawable.Poster;
 import com.qbhy.poster.kernal.BlankResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 public class PosterController {
@@ -21,11 +24,14 @@ public class PosterController {
      * 画图并上传
      *
      * @param poster
-     *
      * @return Result
      */
     @RequestMapping(method = RequestMethod.POST, path = "/poster")
-    Result drawAndUpload(@RequestBody Poster poster) {
+    Result drawAndUpload(@RequestBody @Valid Poster poster, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return new BlankResult("error", bindingResult.getFieldError().getDefaultMessage());
+        }
+
         try {
             // 从 数据中心获取结果，如果有，直接返回
             Result result = data.find(poster.key());
@@ -49,7 +55,6 @@ public class PosterController {
      * 查询结果
      *
      * @param key
-     *
      * @return Result
      */
     @RequestMapping(method = RequestMethod.GET, path = "/poster/{key}")
@@ -65,7 +70,6 @@ public class PosterController {
      * 删除结果
      *
      * @param key
-     *
      * @return Result
      */
     @RequestMapping(method = RequestMethod.DELETE, path = "/poster/{key}")

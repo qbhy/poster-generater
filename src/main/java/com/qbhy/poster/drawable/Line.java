@@ -4,17 +4,26 @@ import com.qbhy.poster.kernal.ColorTools;
 import com.qbhy.poster.kernal.Drawable;
 import lombok.Data;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.awt.*;
 import java.io.IOException;
 
 @Data
 public class Line extends Drawable {
 
+    @NotNull(message = "开始X坐标不能为空")
     private int startX;// 开始 x 坐标
+    @NotNull(message = "结束X坐标不能为空")
     private int endX; // 结束 x 坐标
+    @NotNull(message = "开始Y坐标不能为空")
     private int startY; // 开始 y 坐标
+    @NotNull(message = "结束Y坐标不能为空")
     private int endY; // 结束 y 坐标
+
+    @Min(value = 1)
     private int width = 1; // 宽度
+
     private String color = "#000000"; // 颜色
 
     @Override

@@ -4,6 +4,9 @@ import com.qbhy.poster.kernal.Drawable;
 import com.qbhy.poster.kernal.ResourceUtils;
 import lombok.Data;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
@@ -40,8 +43,8 @@ public class Image extends Drawable {
     /**
      * 缩放图片
      *
-     * @param image 需要缩放的图片
-     * @param width 宽
+     * @param image  需要缩放的图片
+     * @param width  宽
      * @param height 高
      * @return BufferedImage
      */
@@ -59,31 +62,37 @@ public class Image extends Drawable {
     /**
      * x 值
      */
+    @NotNull(message = "图片X坐标不能为空")
     private Integer x;
 
     /**
      * y 值
      */
+    @NotNull(message = "图片Y坐标不能为空")
     private Integer y;
 
     /**
      * 宽度
      */
+    @NotNull(message = "图片宽度不能为空")
     private Integer width;
 
     /**
      * 高度
      */
+    @NotNull(message = "图片高度不能为空")
     private Integer height;
 
     /**
      * border radius
      */
+    @Min(value = 0, message = "图片圆角不能小于0")
     private Integer borderRadius = 0;
 
     /**
      * url
      */
+    @NotEmpty(message = "图片url不能为空")
     private String url;
 
 }

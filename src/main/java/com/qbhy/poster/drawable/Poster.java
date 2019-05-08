@@ -8,6 +8,7 @@ import lombok.Data;
 import org.springframework.util.DigestUtils;
 
 import javax.imageio.ImageIO;
+import javax.validation.constraints.NotNull;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -22,12 +23,14 @@ public class Poster {
     /**
      * 画布宽度
      */
-    private int width;
+    @NotNull(message = "画布宽度不能为空")
+    private Integer width;
 
     /**
      * 画布高度
      */
-    private int height;
+    @NotNull(message = "画布高度不能为空")
+    private Integer height;
 
     /**
      * 画布背景颜色

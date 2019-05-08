@@ -6,7 +6,10 @@ import com.qbhy.poster.kernal.ResourceUtils;
 import lombok.Data;
 import sun.font.FontDesignMetrics;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.awt.*;
 
 @Data
@@ -123,18 +126,30 @@ public class Text extends Drawable {
         return width;
     }
 
+    @NotNull(message = "文本X坐标不能为空")
     private int x = 0;//  x 坐标
+    @NotNull(message = "文本Y坐标不能为空")
     private int y = 0; // y 坐标
+    @Min(value = 8, message = "文本字体大小不能小于8")
     private Integer fontSize = 24; // 字体大小
+    @Min(value = 0, message = "文本区域宽度不能小于0")
     private Integer width; // 文本域宽度
+    @Min(value = 0, message = "文本行高不能小于0")
     private Integer lineHeight = 0; // 行高
 
-    @Min(1)
+    @Min(value = 1, message = "文本行数不能小于1")
     private Integer lineNum = 1; // 行数
 
+    @NotNull(message = "文本字体颜色不能为null")
     private String color = "#000000"; // 颜色
+
+    @NotEmpty(message = "文本内容不能为空")
     private String text; // 文本内容
+
+    @Min(value = 0, message = "文本透明度不能小于0")
+    @Max(value = 1, message = "文本透明度能大于1")
     private Integer opacity = 1; // 透明度
+
     private String textAlign = "left"; // 文本对齐方式
     private String font = "pingfangsr"; // 字体
     private String textOverflow = "ellipsis"; // 文本溢出默认省略号
