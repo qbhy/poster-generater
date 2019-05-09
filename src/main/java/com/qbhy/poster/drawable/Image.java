@@ -121,6 +121,7 @@ public class Image extends Drawable {
     /**
      * 二维码边距
      */
+    @Min(value = 0, message = "二维码边距最小为0")
     private int qrCodeMargin = 2;
 
     /**
