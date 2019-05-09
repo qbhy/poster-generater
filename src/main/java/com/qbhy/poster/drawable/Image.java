@@ -41,7 +41,6 @@ public class Image extends Drawable {
 
         // 如果宽高不合适，先缩放
         if (image.getWidth() != width || image.getHeight() != height) {
-            System.out.println("如果宽高不合适，先缩放");
             image = resize(image, width, height);
         }
 

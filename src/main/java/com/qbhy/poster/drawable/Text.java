@@ -30,7 +30,7 @@ public class Text extends Drawable {
         gd.setColor(ColorTools.String2Color(color));
 
         // 文本域实际宽度
-        int textWidth = width + x > posterWidth ? posterWidth - x : width;
+        int textWidth = width + x > posterWidth ? posterWidth - x : (width == 0 ? posterWidth : width);
         // 当前行数
         int currentNum = 0;
         // 当前行应该取到第几个文字
@@ -133,7 +133,7 @@ public class Text extends Drawable {
     @Min(value = 8, message = "文本字体大小不能小于8")
     private Integer fontSize = 24; // 字体大小
     @Min(value = 0, message = "文本区域宽度不能小于0")
-    private Integer width; // 文本域宽度
+    private Integer width = 0; // 文本域宽度
     @Min(value = 0, message = "文本行高不能小于0")
     private Integer lineHeight = 0; // 行高
 
