@@ -1,5 +1,11 @@
 package com.qbhy.poster.drawable;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.qrcode.QRCodeWriter;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.qbhy.poster.kernal.Drawable;
 import com.qbhy.poster.kernal.ResourceUtils;
 import lombok.Data;
@@ -11,14 +17,27 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @Data
 public class Image extends Drawable {
 
     @Override
     public void draw(Graphics2D gd, int posterWidth, int posterHeight) throws IOException {
-        // 获取图片
-        BufferedImage image = ResourceUtils.getImage(url);
+        BufferedImage image;
+
+        if (qrCode) {
+            // 是二维码图片的话创建一个二维码
+            try {
+                image = createQrCode(url, width, height);
+            } catch (WriterException e) {
+                throw new IOException("生成二维码失败", e);
+            }
+        } else {
+            // 获取图片
+            image = ResourceUtils.getImage(url);
+        }
 
         // 如果宽高不合适，先缩放
         if (image.getWidth() != width || image.getHeight() != height) {
@@ -94,5 +113,31 @@ public class Image extends Drawable {
      */
     @NotEmpty(message = "图片url不能为空")
     private String url;
+
+    /**
+     * 是否是二维码图片
+     */
+    private boolean qrCode = false;
+
+    /**
+     * 创建二维码
+     *
+     * @param content 二维码内容
+     * @param width   宽度
+     * @param height  高度
+     * @return BufferedImage 返回图片
+     * @throws WriterException 异常
+     */
+    public static BufferedImage createQrCode(String content, int width, int height) throws WriterException {
+
+        Map<EncodeHintType, Comparable> hints = new HashMap<>();
+
+        hints.put(EncodeHintType.CHARACTER_SET, "utf-8"); // 字符串编码
+        hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.M); // 纠错等级
+        hints.put(EncodeHintType.MARGIN, 2); // 图片编剧
+        QRCodeWriter writer = new QRCodeWriter();
+
+        return MatrixToImageWriter.toBufferedImage(writer.encode(content, BarcodeFormat.QR_CODE, width, height, hints));
+    }
 
 }
