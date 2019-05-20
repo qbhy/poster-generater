@@ -38,6 +38,11 @@ public class Poster {
     private String backgroundColor = null;
 
     /**
+     * 图片格式,支持 png 和 jpg
+     */
+    private String format = "png";
+
+    /**
      * 文本列表
      */
     private ArrayList<Text> texts;
@@ -73,7 +78,7 @@ public class Poster {
      */
     public File draw() throws IOException {
         // 初始化图片
-        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage image = new BufferedImage(width, height, format.equals("png") ? BufferedImage.TYPE_INT_ARGB : BufferedImage.TYPE_3BYTE_BGR);
 
         // create graphics
         Graphics2D gd = image.createGraphics();
@@ -129,8 +134,8 @@ public class Poster {
         gd.dispose();
 
         // 创建临时文件
-        File file = File.createTempFile(this.key(), ".png");
-        ImageIO.write(image, "PNG", file); // 把文件写入图片
+        File file = File.createTempFile(this.key(), "." + format);
+        ImageIO.write(image, format, file); // 把文件写入图片
         file.deleteOnExit(); // 使用完后删除文件
 
         return file;
