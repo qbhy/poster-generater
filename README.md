@@ -45,7 +45,7 @@
 | backgroundColor | String           | 否   | 背景颜色                               |
 | borderRadius    | Number(单位:px) | 否   | 圆角                                   |
 | text            | Object           | 否   | 块里面可以填充文字，参考texts字段解释  |
-| zIndex          | Int              | 否   | 层级，越大越高                         |
+| index          | Int              | 否   | 层级，越大越高                         |
 
 ### texts字段
 
@@ -61,7 +61,7 @@
 | width          | Number(单位:px) | 否   | 没有指定为画布宽度，默认为x轴右边所有宽度                                           |
 | baseLine       | String           | 否   | top\| middle\|bottom基线对齐方式                             |
 | textAlign      | String           | 否   | left\|center\|right对齐方式                                  |
-| zIndex         | Int              | 否   | 层级，越大越高                                               |
+| index         | Int              | 否   | 层级，越大越高                                               |
 | fontFamily     | String           | 否   | 默认字体为'pingfangtf' ，支持自定义字体      |
 
 ### images字段
@@ -74,7 +74,7 @@
 | width        | Number(单位:px) | 是   | 宽度（**会根据图片的尺寸同比例缩放**）    |
 | height       | Number(单位:px) | 是   | 高度（**会根据图片的尺寸同比例缩放**）    |
 | borderRadius | Number(单位:px) | 否   | 圆角，跟css一样                           |
-| zIndex       | Int              | 否   | 层级，越大越高                            |
+| index       | Int              | 否   | 层级，越大越高                            |
 | qrCode       | Bool              | 否   | 是否二维码图片，如果是，url内容就是二维码内容  |
 
 ### lines字段
@@ -87,7 +87,7 @@
 | endY   | Number(单位:px) | 是   | 终结坐标       |
 | width  | Number(单位:px) | 是   | 线的宽度       |
 | color  | String           | 否   | 线的颜色       |
-| zIndex | Int              | 否   | 层级，越大越高 |
+| index | Int              | 否   | 层级，越大越高 |
 
 
 96qbhy@gmail.com  
