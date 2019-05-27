@@ -12,6 +12,14 @@ import java.io.IOException;
 @Data
 public class Line extends Drawable {
 
+    /**
+     * z index 值
+     */
+    private int index = 1;
+    public int getZIndex() {
+        return index;
+    }
+
     @NotNull(message = "开始X坐标不能为空")
     private int startX;// 开始 x 坐标
     @NotNull(message = "结束X坐标不能为空")

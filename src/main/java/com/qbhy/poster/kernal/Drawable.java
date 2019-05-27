@@ -8,12 +8,4 @@ import java.net.URL;
 
 public abstract class Drawable extends JsonAble implements DrawableInterface {
 
-    /**
-     * z index 值
-     */
-    protected int zIndex = 1;
-
-    public int getZIndex() {
-        return zIndex;
-    }
 }

@@ -5,13 +5,19 @@ import com.qbhy.poster.kernal.Drawable;
 import lombok.Data;
 
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.awt.*;
-import java.io.IOException;
 
 @Data
 public class Block extends Drawable {
+
+    /**
+     * z index 值
+     */
+    private int index = 1;
+    public int getZIndex() {
+        return index;
+    }
 
     /**
      * x 值

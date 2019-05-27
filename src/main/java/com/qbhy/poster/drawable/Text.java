@@ -126,6 +126,14 @@ public class Text extends Drawable {
         return width;
     }
 
+    /**
+     * z index 值
+     */
+    private int index = 1;
+    public int getZIndex() {
+        return index;
+    }
+
     @NotNull(message = "文本X坐标不能为空")
     private int x = 0;//  x 坐标
     @NotNull(message = "文本Y坐标不能为空")

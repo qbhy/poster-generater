@@ -78,6 +78,14 @@ public class Image extends Drawable {
     }
 
     /**
+     * z index 值
+     */
+    private int index = 1;
+    public int getZIndex() {
+        return index;
+    }
+
+    /**
      * x 值
      */
     @NotNull(message = "图片X坐标不能为空")
