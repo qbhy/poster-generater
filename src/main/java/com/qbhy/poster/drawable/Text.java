@@ -28,6 +28,8 @@ public class Text extends Drawable {
         // 设置字体和颜色
         gd.setFont(drawFont);
         gd.setColor(ColorTools.String2Color(color));
+        //消除锯齿状 - 由微信群友【菠萝蜜】提供
+        gd.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
 
         // 文本域实际宽度
         int textWidth = width + x > posterWidth ? posterWidth - x : (width == 0 ? posterWidth : width);
