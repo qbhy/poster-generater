@@ -6,6 +6,7 @@ import com.qbhy.poster.contracts.Uploader;
 import com.qbhy.poster.drawable.Poster;
 import com.qbhy.poster.kernal.BlankResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +18,7 @@ public class PosterController {
     @Autowired
     private Data data;
 
+    @Qualifier("upYunUploader")
     @Autowired
     private Uploader uploader;
 
