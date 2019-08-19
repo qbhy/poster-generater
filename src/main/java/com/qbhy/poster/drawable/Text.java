@@ -29,14 +29,14 @@ public class Text extends Drawable {
         gd.setFont(drawFont);
         gd.setColor(ColorTools.String2Color(color));
         //消除锯齿状 - 由微信群友【菠萝蜜】提供
-        gd.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
+        gd.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
 
         // 文本域实际宽度
         int textWidth = width + x > posterWidth ? posterWidth - x : (width == 0 ? posterWidth : width);
         // 当前行数
         int currentNum = 0;
         // 当前行应该取到第几个文字
-        int lineTextindex;
+        int lineTextIndex;
 
         // 剩余没有画的图片
         String surplus = text;
@@ -60,9 +60,9 @@ public class Text extends Drawable {
             lastLine = currentNum + 1 == lineNum;
             // 放不下的时候,就要对文本进行裁剪了
             if (lineTextWidth > textWidth) {
-                lineTextindex = interceptALine(surplus, drawFont, textWidth, lastLine, ellipsis);
-                lineText = surplus.substring(0, lineTextindex); // 截取当前行文本
-                surplus = surplus.substring(lineTextindex); // 记录剩余文本
+                lineTextIndex = interceptALine(surplus, drawFont, textWidth, lastLine, ellipsis);
+                lineText = surplus.substring(0, lineTextIndex); // 截取当前行文本
+                surplus = surplus.substring(lineTextIndex); // 记录剩余文本
                 lineTextWidth = getWordWidth(drawFont, lineText); // 重新计算宽度
             } else {
                 lineText = surplus;
@@ -132,6 +132,7 @@ public class Text extends Drawable {
      * z index 值
      */
     private int index = 1;
+
     public int getZIndex() {
         return index;
     }
