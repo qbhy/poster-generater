@@ -1,12 +1,12 @@
-package com.qbhy.poster;
+package com.qbhy.poster.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
+@Data
 @Configuration
 @ConfigurationProperties(value = "upyun")
-@Data
 public class UpYunConfig {
     /**
      * 空间名
@@ -34,6 +34,6 @@ public class UpYunConfig {
     private String domain;
 
     public String url(String path) {
-        return this.domain + this.prefix + path;
+        return this.domain + path;
     }
 }

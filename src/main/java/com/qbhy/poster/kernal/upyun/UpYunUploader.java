@@ -1,7 +1,7 @@
 package com.qbhy.poster.kernal.upyun;
 
 import com.UpYun;
-import com.qbhy.poster.UpYunConfig;
+import com.qbhy.poster.config.UpYunConfig;
 import com.qbhy.poster.contracts.Result;
 import com.qbhy.poster.contracts.Uploader;
 import com.upyun.UpException;
@@ -31,20 +31,21 @@ public class UpYunUploader implements Uploader {
 
     @Override
     public Result upload(File file) throws IOException {
-        String fileMd5 = DigestUtils.md5DigestAsHex(new FileInputStream(file));
+        String filepath = this.upYunConfig.getPrefix() + "/" + DigestUtils.md5DigestAsHex(new FileInputStream(file));
         try {
-            boolean flag = this.upyun.writeFile(fileMd5, file);
+            boolean flag = this.upyun.writeFile(filepath, file);
 
             if (flag) {
                 UpYunUploadResult result = new UpYunUploadResult(Result.SUCCESSFUL, "OK");
-                Map<String, String> data = new HashMap<String, String>(){};
-                data.put("url", this.upYunConfig.url(fileMd5));
+                Map<String, String> data = new HashMap<String, String>() {
+                };
+                data.put("url", this.upYunConfig.url(filepath));
                 result.setData(data);
                 return result;
             }
             throw new IOException("文件上传失败");
         } catch (UpException e) {
-            return null;
+            throw new IOException("文件上传失败:" + e.getMessage());
         }
     }
 }

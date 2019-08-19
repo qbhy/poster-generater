@@ -1,6 +1,6 @@
 package com.qbhy.poster.kernal;
 
-import com.qbhy.poster.Config;
+import com.qbhy.poster.config.PosterConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,10 +20,10 @@ import java.net.URL;
 @Component
 public class ResourceUtils {
 
-    private static Config config;
+    private static PosterConfig config;
 
     @Autowired
-    public void setConfig(Config config) {
+    public void setConfig(PosterConfig config) {
         ResourceUtils.config = config;
     }
 

@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Objects;
 
 @RestController
 public class PosterController {
@@ -31,7 +32,7 @@ public class PosterController {
     @RequestMapping(method = RequestMethod.POST, path = "/poster")
     Result drawAndUpload(@RequestBody @Valid Poster poster, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return new BlankResult("error", bindingResult.getFieldError().getDefaultMessage());
+            return new BlankResult("error", Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
         }
 
         try {

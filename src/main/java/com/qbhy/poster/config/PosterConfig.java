@@ -1,6 +1,5 @@
-package com.qbhy.poster;
+package com.qbhy.poster.config;
 
-import com.qbhy.poster.kernal.Drawable;
 import com.qbhy.poster.kernal.JsonAble;
 import com.qbhy.poster.kernal.ResourceUtils;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -14,7 +13,7 @@ import java.io.IOException;
 
 @Configuration
 @ConfigurationProperties(prefix = "poster")
-public class Config extends JsonAble {
+public class PosterConfig extends JsonAble {
 
     // 程序当前运行目录
     private static final String current = System.getProperty("user.dir");
