@@ -72,6 +72,9 @@ public class Text extends Drawable {
             if (textAlign.equals("center")) {
                 offsetX = (textWidth - lineTextWidth) / 2;
             }
+            if (textAlign.equals("right")) {
+                offsetX = (textWidth - lineTextWidth);
+            }
 
             if (lastLine && ellipsis && surplus.length() > 0) {
                 lineText = lineText + "...";
