@@ -7,8 +7,8 @@ import java.util.Map;
 
 @Data
 public class BlankResult extends JsonAble implements Result {
-    private String code = Result.SUCCESSFUL;
-    private String msg = null;
+    private String code;
+    private String msg;
     private Map<String, String> data;
 
     public BlankResult(String code, String msg) {

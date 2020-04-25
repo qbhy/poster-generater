@@ -31,9 +31,7 @@ public class ResourceUtils {
      * 获取图片
      *
      * @param url
-     *
      * @return BufferedImage
-     *
      * @throws IOException
      */
     public static BufferedImage getImage(String url) throws IOException {
@@ -54,26 +52,35 @@ public class ResourceUtils {
      * 通过 URL 获取图片并缓存到本地文件夹中
      *
      * @param url
-     *
      * @return BufferedImage
-     *
      * @throws IOException
      */
     public static BufferedImage getImageFromUrl(String url) throws IOException {
+        return getImageFromUrl(url, false);
+    }
+
+    public static BufferedImage getImageFromUrl(String url, Boolean update) throws IOException {
 
         File file = config.getDownloadedFile(url);
+
         if (file != null) {
-            return ImageIO.read(file);
+            if (update) {
+                file.delete();
+            } else {
+                return ImageIO.read(file);
+            }
         }
 
         BufferedImage image = ImageIO.read(new URL(url));
         // 存起来
         File imageFile = new File(config.getDownloadPath(url));
+
         imageFile.mkdirs();
         ImageIO.write(image, "PNG", imageFile);
 
         return image;
     }
+
 
     /**
      * 图片设置圆角
@@ -82,7 +89,6 @@ public class ResourceUtils {
      * @param radius
      * @param border
      * @param padding
-     *
      * @return
      */
     public static BufferedImage setRadius(BufferedImage srcImage, int radius, int border, int padding) {
@@ -116,7 +122,6 @@ public class ResourceUtils {
      * 图片设置圆角
      *
      * @param srcImage
-     *
      * @return BufferedImage
      */
     public static BufferedImage setRadius(BufferedImage srcImage) {
@@ -129,7 +134,6 @@ public class ResourceUtils {
      *
      * @param srcImage
      * @param radius
-     *
      * @return BufferedImage
      */
     public static BufferedImage setClip(BufferedImage srcImage, int radius) {
@@ -149,9 +153,7 @@ public class ResourceUtils {
      * 获取资源路径
      *
      * @param resourceName
-     *
      * @return String
-     *
      * @throws IOException
      */
     public static String getResourcePath(String resourceName) throws IOException {
