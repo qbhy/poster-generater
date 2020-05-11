@@ -89,6 +89,6 @@
 | color  | String           | 否   | 线的颜色       |
 | index | Int              | 否   | 层级，越大越高 |
 
-
+php吹水交流群请添加: 873213948  
 96qbhy@gmail.com  
 [qbhy/poster-generater](https://github.com/qbhy/poster-generater)
