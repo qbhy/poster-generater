@@ -2,9 +2,11 @@ package com.qbhy.poster.kernal;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.qbhy.poster.contracts.JsonableInterface;
+import com.qbhy.poster.contracts.Jsonable;
 
-public abstract class JsonAble implements JsonableInterface {
+import java.io.IOException;
+
+public abstract class JsonAble implements Jsonable {
 
     @Override
     public String toString() {
@@ -15,8 +17,11 @@ public abstract class JsonAble implements JsonableInterface {
     @Override
     public String toJson() {
         try {
-            return (new ObjectMapper()).writeValueAsString(this);
+            return Jsonable.encode(this);
         } catch (JsonProcessingException e) {
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
             return null;
         }
     }

@@ -1,4 +1,4 @@
-package com.qbhy.poster.config;
+package com.qbhy.poster.kernal.upyun;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

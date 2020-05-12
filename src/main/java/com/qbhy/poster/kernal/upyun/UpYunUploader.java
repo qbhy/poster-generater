@@ -1,9 +1,8 @@
 package com.qbhy.poster.kernal.upyun;
 
 import com.UpYun;
-import com.qbhy.poster.config.UpYunConfig;
-import com.qbhy.poster.contracts.Result;
 import com.qbhy.poster.contracts.Uploader;
+import com.qbhy.poster.kernal.UploadResult;
 import com.upyun.UpException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,8 +11,6 @@ import org.springframework.util.DigestUtils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 @Component
 public class UpYunUploader implements Uploader {
@@ -30,18 +27,12 @@ public class UpYunUploader implements Uploader {
     }
 
     @Override
-    public Result upload(File file) throws IOException {
+    public UploadResult upload(File file) throws IOException {
         String filepath = this.upYunConfig.getPrefix() + "/" + DigestUtils.md5DigestAsHex(new FileInputStream(file));
         try {
             boolean flag = this.upyun.writeFile(filepath, file);
-
             if (flag) {
-                UpYunUploadResult result = new UpYunUploadResult(Result.SUCCESSFUL, "OK");
-                Map<String, String> data = new HashMap<String, String>() {
-                };
-                data.put("url", this.upYunConfig.url(filepath));
-                result.setData(data);
-                return result;
+                return new UploadResult(this.upYunConfig.url(filepath));
             }
             throw new IOException("文件上传失败");
         } catch (UpException e) {

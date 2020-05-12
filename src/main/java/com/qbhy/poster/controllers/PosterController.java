@@ -19,7 +19,7 @@ public class PosterController {
     @Autowired
     private Data data;
 
-    @Qualifier("upYunUploader")
+    @Qualifier("qiniuUploader")
     @Autowired
     private Uploader uploader;
 
@@ -44,6 +44,7 @@ public class PosterController {
 
             // 如果没有，则画图并上传后存储到数据中心
             result = uploader.upload(poster.draw());
+
             if (result.isSuccessful()) {
                 data.save(poster.key(), result);
             }
