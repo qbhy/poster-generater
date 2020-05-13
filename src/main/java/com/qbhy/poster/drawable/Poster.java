@@ -20,6 +20,10 @@ import java.util.Map;
 @Data
 public class Poster {
 
+    enum Format {
+        png, jpg
+    }
+
     /**
      * 画布宽度
      */
@@ -40,7 +44,7 @@ public class Poster {
     /**
      * 图片格式,支持 png 和 jpg
      */
-    private String format = "png";
+    private Format format = Format.png;
 
     /**
      * 文本列表
@@ -78,7 +82,7 @@ public class Poster {
      */
     public File draw() throws IOException {
         // 初始化图片
-        BufferedImage image = new BufferedImage(width, height, format.equals("png") ? BufferedImage.TYPE_INT_ARGB : BufferedImage.TYPE_3BYTE_BGR);
+        BufferedImage image = new BufferedImage(width, height, format.equals(Format.png) ? BufferedImage.TYPE_INT_ARGB : BufferedImage.TYPE_3BYTE_BGR);
 
         // create graphics
         Graphics2D gd = image.createGraphics();
@@ -134,8 +138,8 @@ public class Poster {
         gd.dispose();
 
         // 创建临时文件
-        File file = File.createTempFile(this.key(), "." + format);
-        ImageIO.write(image, format, file); // 把文件写入图片
+        File file = File.createTempFile(this.key(), "." + format.toString());
+        ImageIO.write(image, format.toString(), file); // 把文件写入图片
         file.deleteOnExit(); // 使用完后删除文件
 
         return file;
