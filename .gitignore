@@ -1,7 +1,6 @@
 .DS_Store
 .idea/
 /target/
-/src/test/
 poster.iml
 /out/
 /src/main/resources/application.properties
