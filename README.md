@@ -15,6 +15,22 @@
 * 支持企业定制化开发部署，详情请联系我
 > ps：自定义字体、模板图片、网络图片缓存路径均可配置。具体配置参考 [example.application.properties](https://github.com/qbhy/poster-generater/blob/master/example.application.properties)
 
+## 压测
+```bash
+$ wrk -c 1000 -t 4 -s wrk.lua http://127.0.0.1:8000/wrk
+```
+结果如下
+```
+Running 10s test @ http://127.0.0.1:8000/wrk
+  4 threads and 1000 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency   763.65ms  530.89ms   2.00s    61.96%
+    Req/Sec   177.08     78.36   435.00     68.26%
+  5756 requests in 10.06s, 2.22MB read
+  Socket errors: connect 0, read 890, write 3, timeout 106
+Requests/sec:    572.28
+Transfer/sec:    225.82KB
+```
 
 ## 组件参数解释
 

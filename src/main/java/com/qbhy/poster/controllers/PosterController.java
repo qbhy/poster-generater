@@ -84,5 +84,11 @@ public class PosterController {
         return new BlankResult("error", "result not found!");
     }
 
+    @RequestMapping(method = RequestMethod.POST, path = "/wrk")
+    Result onlyRender(@RequestBody @Valid Poster poster) throws Throwable {
+        poster.draw();
+        return new BlankResult("success", "hello wrk!");
+    }
+
 
 }
