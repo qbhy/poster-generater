@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.Objects;
 
 @RestController
@@ -85,7 +86,10 @@ public class PosterController {
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/wrk")
-    Result onlyRender(@RequestBody @Valid Poster poster) throws Throwable {
+    Result onlyRender(@RequestBody @Valid Poster poster, BindingResult bindingResult) throws IOException {
+        if (bindingResult.hasErrors()) {
+            return new BlankResult("error", Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
+        }
         poster.draw();
         return new BlankResult("success", "hello wrk!");
     }
