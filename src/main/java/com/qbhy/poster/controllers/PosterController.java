@@ -20,7 +20,7 @@ public class PosterController {
     @Autowired
     private Data data;
 
-    @Qualifier("qiniuUploader")
+    @Qualifier("ossUploader")
     @Autowired
     private Uploader uploader;
 

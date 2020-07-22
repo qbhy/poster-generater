@@ -1,9 +1,13 @@
+import com.aliyun.oss.model.PutObjectResult;
 import com.qbhy.poster.PosterApplication;
+import com.qbhy.poster.kernal.oss.OssConfig;
+import com.qbhy.poster.kernal.oss.OssUploader;
 import com.qbhy.poster.kernal.qiniu.QiniuConfig;
 import com.qbhy.poster.kernal.qiniu.QiniuUploader;
 import com.qbhy.poster.kernal.upyun.UpYunUploader;
 import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;
+import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,10 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = PosterApplication.class)
@@ -60,5 +61,16 @@ public class UploaderTest {
     @Test
     public void testUpyunUploader() throws IOException {
         Assert.assertTrue(upYunUploader.upload(makeTestFile()).isSuccessful());
+    }
+
+    @Autowired
+    OssConfig ossConfig;
+
+    @Autowired
+    OssUploader ossUploader;
+
+    @Test
+    public void testOssUploader() throws IOException {
+        Assert.assertTrue(ossUploader.upload(makeTestFile()).isSuccessful());
     }
 }
