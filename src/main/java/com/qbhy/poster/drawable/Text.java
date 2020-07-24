@@ -31,7 +31,11 @@ public class Text extends Drawable {
             return tempFont;
         }
 
-        return tempFont.deriveFont(fontSize);
+        if (tempFont.getSize() != fontSize) {
+            return tempFont.deriveFont(fontSize);
+        }
+
+        return tempFont;
     }
 
     @Override
