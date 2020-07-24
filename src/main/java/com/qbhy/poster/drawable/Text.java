@@ -23,7 +23,7 @@ public class Text extends Drawable {
         Font tempFont = drawFonts.get(name);
         if (tempFont == null) {
             try {
-                tempFont = Font.createFont(Font.TRUETYPE_FONT, ResourceUtils.getFontFile(name)).deriveFont(fontSize);
+                tempFont = Font.createFont(Font.TRUETYPE_FONT, ResourceUtils.getFontFile(name)).deriveFont((float)fontSize);
             } catch (Exception e) {
                 tempFont = new Font("Default", Font.PLAIN, fontSize);
             }
@@ -32,7 +32,7 @@ public class Text extends Drawable {
         }
 
         if (tempFont.getSize() != fontSize) {
-            return tempFont.deriveFont(fontSize);
+            return tempFont.deriveFont((float)fontSize);
         }
 
         return tempFont;
