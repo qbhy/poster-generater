@@ -11,19 +11,32 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 
 @Data
 public class Text extends Drawable {
 
+    static Map<String, Font> drawFonts = new HashMap<>();
+
+    public static Font getDrawFont(String name, Integer fontSize) {
+        Font tempFont = drawFonts.get(name);
+        if (tempFont == null) {
+            try {
+                tempFont = Font.createFont(Font.TRUETYPE_FONT, ResourceUtils.getFontFile(name)).deriveFont(fontSize);
+            } catch (Exception e) {
+                tempFont = new Font("Default", Font.PLAIN, fontSize);
+            }
+            drawFonts.put(name, tempFont);
+            return tempFont;
+        }
+
+        return tempFont.deriveFont(fontSize);
+    }
+
     @Override
     public void draw(Graphics2D gd, int posterWidth, int posterHeight) {
-        Font drawFont;
-
-        try {
-            drawFont = Font.createFont(Font.TRUETYPE_FONT, ResourceUtils.getFontFile(font)).deriveFont((float) fontSize);
-        } catch (Exception e) {
-            drawFont = new Font("Default", Font.PLAIN, fontSize);
-        }
+        Font drawFont = getDrawFont(font, fontSize);
 
         // 设置字体和颜色
         gd.setFont(drawFont);
