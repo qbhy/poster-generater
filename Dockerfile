@@ -6,4 +6,4 @@ COPY target/poster-2.2.4-SNAPSHOT.jar /opt/poster/app.jar
 
 EXPOSE 8000
 
-RUN ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
