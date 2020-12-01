@@ -98,6 +98,37 @@ public class Text extends Drawable {
             }
 
             gd.drawString(lineText, x + offsetX, y + fontSize + (lineHeight - fontSize) / 2 + currentNum * lineHeight);
+
+            //文本的修饰线条  绘制：
+            int startX=0;// 开始 x 坐标
+            int endX=0; // 结束 x 坐标
+            int startY=0; // 开始 y 坐标
+            int endY=0; // 结束 y 坐标
+
+            //log.info("开始进行 文本修饰线条 绘制：textDecoration:{} ",textDecoration);
+            gd.setStroke(new BasicStroke((float) textDecorationLineWith));
+            gd.setPaint(ColorTools.String2Color(color)); // 设置画笔颜色
+
+            //中划线
+            if(textDecoration.equals("line-through")){
+                startX=x + offsetX;
+                startY=y + lineHeight / 2 + textDecorationOffsetY + currentNum * lineHeight;
+                endX=startX+lineTextWidth;
+                endY=startY;
+
+                gd.drawLine(startX, startY, endX, endY); // 划线
+            }
+            //下划线
+            else if(textDecoration.equals("underline")){
+                startX=x + offsetX;
+                startY=(y + fontSize + (lineHeight - fontSize) / 2 + currentNum * lineHeight) + textDecorationOffsetY;
+                endX=startX+lineTextWidth;
+                endY=startY;
+
+                gd.drawLine(startX, startY, endX, endY); // 划线
+            }
+
+
             currentNum++;
         }
     }
@@ -184,5 +215,18 @@ public class Text extends Drawable {
     private String textAlign = "left"; // 文本对齐方式
     private String font = "pingfangsr"; // 字体
     private String textOverflow = "ellipsis"; // 文本溢出默认省略号
+
+     /*
+   text-decoration下划线CSS单词值参数： 暂时只支持 中划线、下划线 和 无装饰
+   none:无装饰
+   blink:闪烁
+   underline:下划线
+   line-through:贯穿线 中划线
+   overline:上划线
+   */
+
+    private String textDecoration="none";
+    private int textDecorationLineWith=1; //默认线宽
+    private int textDecorationOffsetY=2;  //默认线条 Y轴偏移量,主要起美观协调作用
 
 }
