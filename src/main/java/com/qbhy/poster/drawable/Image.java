@@ -44,18 +44,13 @@ public class Image extends Drawable {
             image = resize(image, width, height);
         }
 
-        // 处理圆角
+        // 处理圆角，todo: 实现的不完美，待优化
         if (borderRadius > 0) {
             image = ResourceUtils.setRadius(image, borderRadius * 4, 0, 0);
         }
 
         // 画图
-        gd.drawImage(image, x, y, width, height, new ImageObserver() {
-            @Override
-            public boolean imageUpdate(java.awt.Image img, int infoflags, int x, int y, int width, int height) {
-                return false;
-            }
-        });
+        gd.drawImage(image, x, y, width, height, (img, infoFlags, x, y, width, height) -> false);
     }
 
     /**
