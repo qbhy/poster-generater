@@ -13,10 +13,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-@Component
+//@Component
 public class OssUploader implements Uploader {
 
-    @Autowired
+//    @Autowired
     OssConfig config;
 
     OSS ossClient;
@@ -25,7 +25,7 @@ public class OssUploader implements Uploader {
         return ossClient;
     }
 
-    @Autowired
+//    @Autowired
     public void setOssClient() {
         this.ossClient = new OSSClientBuilder().build(config.getEndpoint(), config.getAccess(), config.getSecret());
     }

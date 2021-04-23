@@ -10,8 +10,14 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Objects;
 
 @RestController
@@ -20,7 +26,7 @@ public class PosterController {
     @Autowired
     private Data data;
 
-    @Qualifier("ossUploader")
+    @Qualifier("upYunUploader")
     @Autowired
     private Uploader uploader;
 
@@ -53,6 +59,38 @@ public class PosterController {
         } catch (Exception e) {
             e.printStackTrace();
             return new BlankResult("error", e.getMessage());
+        }
+    }
+
+    /**
+     * 画图并下载
+     *
+     * @param poster
+     * @return Result
+     */
+    @RequestMapping(method = RequestMethod.POST, path = "/poster/render")
+    @ResponseBody
+    void drawAndResponse(@RequestBody @Valid Poster poster, BindingResult bindingResult, HttpServletResponse response) throws Exception {
+        if (bindingResult.hasErrors()) {
+            throw new Exception("参数格式错误");
+        }
+        File file = poster.draw();
+
+        OutputStream os = null;
+        try {
+//        读取图片
+            BufferedImage image = ImageIO.read(new FileInputStream(file));
+            response.setContentType("image/png");
+            os = response.getOutputStream();
+
+            if (image != null) {
+                ImageIO.write(image, "png", os);
+            }
+        } finally {
+            if (os != null) {
+                os.flush();
+                os.close();
+            }
         }
     }
 
