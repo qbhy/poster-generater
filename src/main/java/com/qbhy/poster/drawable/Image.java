@@ -50,6 +50,7 @@ public class Image extends Drawable {
         }
 
         // 画图
+        gd.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         gd.drawImage(image, x, y, width, height, (img, infoFlags, x, y, width, height) -> false);
     }
 
@@ -66,6 +67,7 @@ public class Image extends Drawable {
 
         BufferedImage newBufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         Graphics2D graphics = newBufferedImage.createGraphics();
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         graphics.drawImage(img, 0, 0, null);
         graphics.dispose();
 
