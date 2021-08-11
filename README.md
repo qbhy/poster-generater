@@ -78,7 +78,7 @@ Transfer/sec:    225.82KB
 | baseLine       | String           | 否   | top\| middle\|bottom基线对齐方式                             |
 | textAlign      | String           | 否   | left\|center\|right对齐方式                                  |
 | index         | Int              | 否   | 层级，越大越高                                               |
-| fontFamily     | String           | 否   | 默认字体为'pingfangtf' ，支持自定义字体      |
+| font          | String           | 否   | 默认字体为'pingfangtf' ，支持自定义字体      |
 
 ### images字段
 
@@ -105,6 +105,6 @@ Transfer/sec:    225.82KB
 | color  | String           | 否   | 线的颜色       |
 | index | Int              | 否   | 层级，越大越高 |
 
-php吹水交流群请添加: 873213948  
+进群请加微信: qbhy0715  
 96qbhy@gmail.com  
 [qbhy/poster-generater](https://github.com/qbhy/poster-generater)
