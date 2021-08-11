@@ -105,6 +105,10 @@ Transfer/sec:    225.82KB
 | color  | String           | 否   | 线的颜色       |
 | index | Int              | 否   | 层级，越大越高 |
 
+## 赞赏
+如果你认为我的代码对你有帮助... 好吧我看他们都放，我也跟着放了
+![1141628692038_.pic.jpg](https://i.loli.net/2021/08/11/QEX2nZIf3Aa8hdJ.jpg)
+
 进群请加微信: qbhy0715  
 qbhy0715@qq.com  
 [qbhy/poster-generater](https://github.com/qbhy/poster-generater)
