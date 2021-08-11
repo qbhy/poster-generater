@@ -106,5 +106,5 @@ Transfer/sec:    225.82KB
 | index | Int              | 否   | 层级，越大越高 |
 
 进群请加微信: qbhy0715  
-96qbhy@gmail.com  
+qbhy0715@qq.com  
 [qbhy/poster-generater](https://github.com/qbhy/poster-generater)
