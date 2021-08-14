@@ -1,5 +1,6 @@
 package com.qbhy.poster.controllers;
 
+import com.qbhy.poster.config.PosterConfig;
 import com.qbhy.poster.contracts.Data;
 import com.qbhy.poster.contracts.Result;
 import com.qbhy.poster.contracts.Uploader;
@@ -7,6 +8,7 @@ import com.qbhy.poster.drawable.Poster;
 import com.qbhy.poster.kernal.BlankResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,13 +24,27 @@ import java.util.Objects;
 
 @RestController
 public class PosterController {
+    @Autowired
+    private ApplicationContext applicationContext;
 
     @Autowired
     private Data data;
 
-    @Qualifier("upYunUploader")
     @Autowired
+    private PosterConfig posterConfig;
+
     private Uploader uploader;
+
+    // 支持通过配置文件指定上传方式
+    @Autowired()
+    public void setUploader() {
+        if (posterConfig.getUploader() == null) {
+            this.uploader = (Uploader) applicationContext.getBean("smmsUploader");
+            return;
+        }
+        this.uploader = (Uploader) applicationContext.getBean(posterConfig.getUploader());
+
+    }
 
     /**
      * 画图并上传

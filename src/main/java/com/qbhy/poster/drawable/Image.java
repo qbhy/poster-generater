@@ -46,7 +46,7 @@ public class Image extends Drawable {
 
         // 处理圆角，todo: 实现的不完美，待优化
         if (borderRadius > 0) {
-            image = ResourceUtils.setRadius(image, borderRadius * 4, 0, 0);
+            image = ResourceUtils.setRadius(image, borderRadius * 4, 0, -1);
         }
 
         // 画图
