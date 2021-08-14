@@ -36,7 +36,7 @@ public class PosterConfig extends JsonAble {
     private String fontsPath = current + "/fonts";
 
     /**
-     * 模板路径
+     * 上传方式
      */
     private String Uploader = "smmsUploader";
 
