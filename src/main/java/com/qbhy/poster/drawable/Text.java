@@ -23,7 +23,7 @@ public class Text extends Drawable {
         Font tempFont = drawFonts.get(name);
         if (tempFont == null) {
             try {
-                tempFont = Font.createFont(Font.TRUETYPE_FONT, ResourceUtils.getFontFile(name)).deriveFont((float)fontSize);
+                tempFont = Font.createFont(Font.TRUETYPE_FONT, ResourceUtils.getFontFile(name)).deriveFont((float) fontSize);
             } catch (Exception e) {
                 tempFont = new Font("Default", Font.PLAIN, fontSize);
             }
@@ -32,7 +32,7 @@ public class Text extends Drawable {
         }
 
         if (tempFont.getSize() != fontSize) {
-            return tempFont.deriveFont((float)fontSize);
+            return tempFont.deriveFont((float) fontSize);
         }
 
         return tempFont;
@@ -47,6 +47,7 @@ public class Text extends Drawable {
         gd.setColor(ColorTools.String2Color(color));
         //消除锯齿状 - 由微信群友【菠萝蜜】提供
         gd.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
+        gd.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_DEFAULT);
 
         // 文本域实际宽度
         int textWidth = width + x > posterWidth ? posterWidth - x : (width == 0 ? posterWidth : width);
@@ -97,33 +98,36 @@ public class Text extends Drawable {
                 lineText = lineText + "...";
             }
 
+            gd.setPaint(new Color(0, 0, 0, 64));//阴影颜色
+            gd.drawString(lineText, x + offsetX, y + fontSize + (lineHeight - fontSize) / 2 + currentNum * lineHeight);
+            gd.setPaint(ColorTools.String2Color(color)); // 设置画笔颜色
             gd.drawString(lineText, x + offsetX, y + fontSize + (lineHeight - fontSize) / 2 + currentNum * lineHeight);
 
             //文本的修饰线条  绘制：
-            int startX=0;// 开始 x 坐标
-            int endX=0; // 结束 x 坐标
-            int startY=0; // 开始 y 坐标
-            int endY=0; // 结束 y 坐标
+            int startX = 0;// 开始 x 坐标
+            int endX = 0; // 结束 x 坐标
+            int startY = 0; // 开始 y 坐标
+            int endY = 0; // 结束 y 坐标
 
             //log.info("开始进行 文本修饰线条 绘制：textDecoration:{} ",textDecoration);
             gd.setStroke(new BasicStroke((float) textDecorationLineWith));
             gd.setPaint(ColorTools.String2Color(color)); // 设置画笔颜色
 
             //中划线
-            if(textDecoration.equals("line-through")){
-                startX=x + offsetX;
-                startY=y + lineHeight / 2 + textDecorationOffsetY + currentNum * lineHeight;
-                endX=startX+lineTextWidth;
-                endY=startY;
+            if (textDecoration.equals("line-through")) {
+                startX = x + offsetX;
+                startY = y + lineHeight / 2 + textDecorationOffsetY + currentNum * lineHeight;
+                endX = startX + lineTextWidth;
+                endY = startY;
 
                 gd.drawLine(startX, startY, endX, endY); // 划线
             }
             //下划线
-            else if(textDecoration.equals("underline")){
-                startX=x + offsetX;
-                startY=(y + fontSize + (lineHeight - fontSize) / 2 + currentNum * lineHeight) + textDecorationOffsetY;
-                endX=startX+lineTextWidth;
-                endY=startY;
+            else if (textDecoration.equals("underline")) {
+                startX = x + offsetX;
+                startY = (y + fontSize + (lineHeight - fontSize) / 2 + currentNum * lineHeight) + textDecorationOffsetY;
+                endX = startX + lineTextWidth;
+                endY = startY;
 
                 gd.drawLine(startX, startY, endX, endY); // 划线
             }
@@ -225,8 +229,8 @@ public class Text extends Drawable {
    overline:上划线
    */
 
-    private String textDecoration="none";
-    private int textDecorationLineWith=1; //默认线宽
-    private int textDecorationOffsetY=2;  //默认线条 Y轴偏移量,主要起美观协调作用
+    private String textDecoration = "none";
+    private int textDecorationLineWith = 1; //默认线宽
+    private int textDecorationOffsetY = 2;  //默认线条 Y轴偏移量,主要起美观协调作用
 
 }

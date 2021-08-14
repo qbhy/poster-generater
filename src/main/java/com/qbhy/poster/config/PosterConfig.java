@@ -2,6 +2,7 @@ package com.qbhy.poster.config;
 
 import com.qbhy.poster.kernal.JsonAble;
 import com.qbhy.poster.kernal.ResourceUtils;
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.DigestUtils;
@@ -13,6 +14,7 @@ import java.io.IOException;
 
 @Configuration
 @ConfigurationProperties(prefix = "poster")
+@Data
 public class PosterConfig extends JsonAble {
 
     // 程序当前运行目录
@@ -34,6 +36,11 @@ public class PosterConfig extends JsonAble {
     private String fontsPath = current + "/fonts";
 
     /**
+     * 模板路径
+     */
+    private String Uploader = "smmsUploader";
+
+    /**
      * 获取文件下载目录
      *
      * @return String
@@ -46,7 +53,6 @@ public class PosterConfig extends JsonAble {
      * 获取文件下载后的地址
      *
      * @param url
-     *
      * @return String
      */
     public String getDownloadPath(String url) {
@@ -89,9 +95,7 @@ public class PosterConfig extends JsonAble {
      * 从模板中获取图片
      *
      * @param imageName
-     *
      * @return imageFile
-     *
      * @throws IOException
      */
     public BufferedImage getTemplateImage(String imageName) throws IOException {
@@ -116,9 +120,7 @@ public class PosterConfig extends JsonAble {
      * 从字体库中获取字体
      *
      * @param font
-     *
      * @return File
-     *
      * @throws IOException
      */
     public File getFontFile(String font) throws IOException {
@@ -143,7 +145,6 @@ public class PosterConfig extends JsonAble {
      * 获取下载过的文件
      *
      * @param url
-     *
      * @return File
      */
     public File getDownloadedFile(String url) {
