@@ -6,7 +6,9 @@
 
     <groupId>qbhy</groupId>
     <artifactId>poster</artifactId>
-    <version>2.2.4-SNAPSHOT</version>
+
+<!--  需要和 Makefile、Dockerfile 同步-->
+    <version>2.5</version>
 
     <packaging>jar</packaging>
 
