@@ -1,6 +1,7 @@
 package com.qbhy.poster.kernal;
 
 import com.qbhy.poster.config.PosterConfig;
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -8,6 +9,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -37,6 +39,13 @@ public class ResourceUtils {
     public static BufferedImage getImage(String url) throws IOException {
         if (url.contains("://")) {
             return getImageFromUrl(url);
+        }
+
+        // 如果是Base64 url
+        if (url.contains("data:image")) {
+            byte[] bytes = Base64.decodeBase64(url.split(",")[1].getBytes());
+            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
+            return ImageIO.read(byteArrayInputStream);
         }
 
         BufferedImage imageFile = config.getTemplateImage(url);
