@@ -1,8 +1,9 @@
 # poster-generater
 ⚡⚡⚡海报生成器. 只需要一个简单的 json 配置即可生成你需要的海报...
 
-## 详细文档
-[使用文档](https://blog.janguly.com/poster#%E8%AF%B4%E6%98%8E)
+## 相关文档
+[使用文档](https://blog.janguly.com/poster#%E8%AF%B4%E6%98%8E)  
+[常见问题](faq.md)
 
 ## 新版功能更丰富
 * 基于 java 开发，部署和二次开发更方便

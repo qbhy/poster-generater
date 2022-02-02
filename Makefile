@@ -1,8 +1,8 @@
 # 需要和 pom.xml、Dockerfile 同步
-VERSION=2.5
+VERSION=2.6.0
 
 install:
-	mvn install
+	mvn install -X
 
 pack:
 	mvn package -e
