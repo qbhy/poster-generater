@@ -2,7 +2,7 @@
 ⚡⚡⚡海报生成器. 只需要一个简单的 json 配置即可生成你需要的海报...
 
 ## 相关文档
-[使用文档](https://github.com/qbhy/poster-generater/wiki) 
+[使用文档](https://github.com/qbhy/poster-generater/wiki)  
 [REST API](https://github.com/qbhy/poster-generater/wiki/REST-API)  
 [常见问题](faq.md)
 
