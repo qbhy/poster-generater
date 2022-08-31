@@ -32,9 +32,28 @@ public class OssUploader implements Uploader {
 
     @Override
     public UploadResult upload(File file) throws IOException {
-        String filepath = config.getPrefix() + "/" + DigestUtils.md5DigestAsHex(new FileInputStream(file));
-        PutObjectResult result = ossClient.putObject(config.getBucket(), filepath, file);
+        String filepaths = config.getPrefix() + "/" + DigestUtils.md5DigestAsHex(new FileInputStream(file));
+        String filepath = this.removePrefix(filepaths, "/");
+        try {
+            ossClient.putObject(config.getBucket(), filepath, file);
+            return new UploadResult(config.getDomain() + filepath);
+        } finally {
+            ossClient.shutdown();
+        }
+    }
 
-        return new UploadResult(config.getDomain() + filepath);
+    /**
+     * 删除前缀
+     *
+     * @param s      s
+     * @param prefix 前缀
+     * @return {@link String}
+     */
+    private String removePrefix(String s, String prefix)
+    {
+        if (s != null && prefix != null && s.startsWith(prefix)) {
+            return s.substring(prefix.length());
+        }
+        return s;
     }
 }
