@@ -65,7 +65,7 @@ public class Image extends Drawable {
     private static BufferedImage resize(BufferedImage image, int width, int height) {
         java.awt.Image img = image.getScaledInstance(width, height, java.awt.Image.SCALE_FAST);
 
-        BufferedImage newBufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        BufferedImage newBufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics = newBufferedImage.createGraphics();
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         graphics.drawImage(img, 0, 0, null);
