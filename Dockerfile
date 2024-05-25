@@ -7,6 +7,8 @@ ENV VERSION=2.5
 COPY src ./src
 #RUN mvn package -e
 RUN mvn clean package -DskipTests
+RUN apt install -y tree
+RUN tree
 
 
 FROM mcr.microsoft.com/java/jre:8-zulu-alpine
@@ -16,7 +18,7 @@ ENV VERSION=2.5
 
 WORKDIR /opt/poster
 
-COPY --from=build target/poster-$VERSION.jar /opt/poster/poster.jar
+COPY --from=build /app/target/poster-$VERSION.jar /opt/poster/poster.jar
 COPY example.application.properties /opt/poster/application.properties
 
 # 创建默认资源文件夹
