@@ -1,3 +1,12 @@
+# Stage 1: Build the application
+FROM maven:3.8.1-openjdk-8 AS build
+WORKDIR /app
+COPY pom.xml .
+# 需要和 pom.xml、Makefile 同步
+ENV VERSION=2.5
+COPY src ./src
+RUN mvn package -e
+
 FROM mcr.microsoft.com/java/jre:8-zulu-alpine
 
 # 需要和 pom.xml、Makefile 同步
@@ -5,7 +14,7 @@ ENV VERSION=2.5
 
 WORKDIR /opt/poster
 
-COPY target/poster-$VERSION.jar /opt/poster/poster.jar
+COPY --from=build target/poster-$VERSION.jar /opt/poster/poster.jar
 COPY application.properties /opt/poster/application.properties
 
 # 创建默认资源文件夹
