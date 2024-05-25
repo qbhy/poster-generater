@@ -4,10 +4,9 @@ WORKDIR /app
 
 RUN apt-get update && apt-get install -y tree
 
-
 COPY pom.xml .
 # 需要和 pom.xml、Makefile 同步
-ENV VERSION=2.5
+ENV VERSION=2.6
 COPY src ./src
 #RUN mvn package -e
 RUN mvn clean package -DskipTests
@@ -17,7 +16,7 @@ RUN tree
 FROM mcr.microsoft.com/java/jre:8-zulu-alpine
 
 # 需要和 pom.xml、Makefile 同步
-ENV VERSION=2.5
+ENV VERSION=2.6
 
 WORKDIR /opt/poster
 
