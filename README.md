@@ -16,7 +16,16 @@
 * 缓存网络图片，减少网络图片加载
 * 支持企业定制化开发部署，详情请联系我
 > ps：自定义字体、模板图片、网络图片缓存路径均可配置。具体配置参考 [example.application.properties](https://github.com/qbhy/poster-generater/blob/master/example.application.properties)
+> 
 
+## 使用docker快速启动
+```
+$ docker run -d -p 8000:8000 qbhy/poster-generator:latest
+```
+## 直接获取图片API接口
+```
+http://127.0.0.1:8000/poster/render
+```
 ## 压测
 ```bash
 $ wrk -c 1000 -t 4 -s wrk.lua http://127.0.0.1:8000/wrk
