@@ -17,7 +17,7 @@ ENV VERSION=2.5
 WORKDIR /opt/poster
 
 COPY --from=build target/poster-$VERSION.jar /opt/poster/poster.jar
-COPY application.properties /opt/poster/application.properties
+COPY example.application.properties /opt/poster/application.properties
 
 # 创建默认资源文件夹
 RUN mkdir downloads fonts templates
