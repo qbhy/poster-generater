@@ -5,7 +5,9 @@ COPY pom.xml .
 # 需要和 pom.xml、Makefile 同步
 ENV VERSION=2.5
 COPY src ./src
-RUN mvn package -e
+#RUN mvn package -e
+RUN mvn clean package -DskipTests
+
 
 FROM mcr.microsoft.com/java/jre:8-zulu-alpine
 
