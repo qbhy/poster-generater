@@ -6,6 +6,10 @@
 [REST API](https://github.com/qbhy/poster-generater/wiki/REST-API)  
 [常见问题](faq.md)
 
+## Star History
+![https://api.star-history.com/svg?repos=qbhy/poster-generater&type=Date](https://api.star-history.com/svg?repos=qbhy/poster-generater&type=Date)
+
+
 ## 新版功能更丰富
 * 基于 java 开发，部署和二次开发更方便
 * 图片将上传到 公共 CDN，不占用主机磁盘，且速度更快
