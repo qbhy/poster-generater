@@ -4,10 +4,15 @@ import com.qbhy.poster.config.PosterConfig;
 import com.qbhy.poster.contracts.Data;
 import com.qbhy.poster.contracts.Result;
 import com.qbhy.poster.contracts.Uploader;
+import com.qbhy.poster.drawable.Image;
 import com.qbhy.poster.drawable.Poster;
+import com.qbhy.poster.drawable.demo.DemoPoster;
+import com.qbhy.poster.drawable.demo.DemoImage;
 import com.qbhy.poster.kernal.BlankResult;
+import com.qbhy.poster.utils.ColorUtils;
+import com.qbhy.poster.utils.ImageSaver;
+import com.qbhy.poster.utils.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +25,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @RestController
@@ -96,6 +103,58 @@ public class PosterController {
         try {
 //        读取图片
             BufferedImage image = ImageIO.read(new FileInputStream(file));
+            response.setContentType("image/png");
+            os = response.getOutputStream();
+
+            if (image != null) {
+                ImageIO.write(image, "png", os);
+            }
+        } finally {
+            if (os != null) {
+                os.flush();
+                os.close();
+            }
+        }
+    }
+
+    @RequestMapping(method = RequestMethod.POST, path = "/poster/demo")
+    @ResponseBody
+    void demoDraw(@RequestBody @Valid DemoPoster demoPoster, BindingResult bindingResult, HttpServletResponse response) throws Exception {
+        Poster poster = new Poster();
+        poster.setHeight(NumberUtils.convert(demoPoster.clipPath.getHeight(), NumberUtils.ROUND, 0));
+        poster.setWidth(NumberUtils.convert(demoPoster.clipPath.getWidth(), NumberUtils.ROUND, 0));
+        poster.setBackgroundColor(ColorUtils.expandHexColor(demoPoster.clipPath.getFill()));
+
+        ArrayList<Image> images = new ArrayList<>();
+        for (DemoImage item : demoPoster.objects) {
+            switch (item.getType()) {
+                case "image":
+                    Image image = new Image();
+                    image.setHeight(NumberUtils.convert(item.getHeight() * item.getScaleY(), NumberUtils.ROUND, 0));
+                    image.setWidth(NumberUtils.convert(item.getWidth() * item.getScaleX(), NumberUtils.ROUND, 0));
+                    image.setUrl(item.getSrc());
+                    image.setX(NumberUtils.convert(item.getLeft(), NumberUtils.ROUND, 0));
+                    image.setY(NumberUtils.convert(item.getTop(), NumberUtils.ROUND, 0));
+                    images.add(image);
+                    break;
+            }
+        }
+        poster.setImages(images);
+
+        if (bindingResult.hasErrors()) {
+            throw new Exception("参数格式错误");
+        }
+
+        File file = poster.draw();
+
+        OutputStream os = null;
+
+        try {
+//        读取图片
+            BufferedImage image = ImageIO.read(new FileInputStream(file));
+
+//            ImageSaver.saveToCurrentDir(image, "png", "demo");
+
             response.setContentType("image/png");
             os = response.getOutputStream();
 

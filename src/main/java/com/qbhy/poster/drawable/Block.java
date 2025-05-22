@@ -46,7 +46,7 @@ public class Block extends Drawable {
     /**
      * 画布背景颜色
      */
-    private String backgroudColor;
+    private String backgroundColor;
 
     /**
      * 边框颜色
@@ -69,8 +69,8 @@ public class Block extends Drawable {
 
         int offset = boxSizing.equals("borderBox") ? 0 : borderWidth;
 
-        if (backgroudColor != null) {
-            gd.setColor(ColorTools.String2Color(backgroudColor)); // 设置画笔颜色
+        if (backgroundColor != null) {
+            gd.setColor(ColorTools.String2Color(backgroundColor)); // 设置画笔颜色
             gd.fillRect(x + offset, y + offset, width, height); // 画填充矩形
         }
 

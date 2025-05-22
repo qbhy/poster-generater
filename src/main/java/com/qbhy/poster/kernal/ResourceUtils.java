@@ -81,6 +81,10 @@ public class ResourceUtils {
         }
 
         BufferedImage image = ImageIO.read(new URL(url));
+
+        if (image == null) {
+            throw new IOException("Can't get input stream from URL!" + url);
+        }
         // 存起来
         File imageFile = new File(config.getDownloadPath(url));
 
