@@ -8,13 +8,19 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.qbhy.poster.kernal.Drawable;
 import com.qbhy.poster.kernal.ResourceUtils;
+
+import java.awt.geom.AffineTransform;
+
+import com.qbhy.poster.utils.NumberUtils;
 import lombok.Data;
 
+import javax.imageio.ImageIO;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,8 +45,19 @@ public class Image extends Drawable {
         }
 
         // 如果宽高不合适，先缩放
-        if (image.getWidth() != width || image.getHeight() != height) {
+        if ((image.getWidth() != width || image.getHeight() != height)) {
             image = resize(image, width, height);
+        }
+
+        // 要旋转的话旋转
+        if (angle != 0) {
+
+            x -= NumberUtils.convert(width * scaleX, NumberUtils.ROUND, width);
+
+            image = rotateImage(image, angle);
+
+            width = image.getWidth();
+            height = image.getHeight();
         }
 
         // 处理圆角，todo: 实现的不完美，待优化
@@ -72,6 +89,158 @@ public class Image extends Drawable {
 
         return newBufferedImage;
     }
+
+    public static BufferedImage rotateImageCentered(BufferedImage original, double angleDegrees) {
+        // 将角度转换为弧度
+        double radians = Math.toRadians(angleDegrees);
+
+        // 计算旋转后的新尺寸（避免裁剪）
+        double sin = Math.abs(Math.sin(radians));
+        double cos = Math.abs(Math.cos(radians));
+
+        int newWidth = (int) Math.round(original.getWidth() * cos + original.getHeight() * sin);
+        int newHeight = (int) Math.round(original.getWidth() * sin + original.getHeight() * cos);
+
+        // 创建新图像（保持原始图像类型）
+        int type = original.getTransparency() == BufferedImage.OPAQUE ?
+                BufferedImage.TYPE_INT_RGB : BufferedImage.TYPE_INT_ARGB;
+
+        BufferedImage rotated = new BufferedImage(newWidth, newHeight, type);
+
+        // 创建图形上下文
+        Graphics2D g2d = rotated.createGraphics();
+
+        // 设置渲染质量
+        g2d.setRenderingHint(
+                java.awt.RenderingHints.KEY_INTERPOLATION,
+                java.awt.RenderingHints.VALUE_INTERPOLATION_BILINEAR
+        );
+        g2d.setRenderingHint(
+                java.awt.RenderingHints.KEY_ANTIALIASING,
+                java.awt.RenderingHints.VALUE_ANTIALIAS_ON
+        );
+
+        // 计算中心点坐标
+        int centerX = newWidth / 2;
+        int centerY = newHeight / 2;
+        int origCenterX = original.getWidth() / 2;
+        int origCenterY = original.getHeight() / 2;
+
+        // 应用变换：围绕中心旋转
+        AffineTransform transform = new AffineTransform();
+//        transform.translate(centerX, centerY);         // 移动到新中心
+        transform.rotate(radians);                     // 围绕中心旋转
+//        transform.translate(-origCenterX, -origCenterY); // 偏移使原始中心对齐
+
+        g2d.setTransform(transform);
+
+        // 绘制原始图像
+        g2d.drawImage(original, 0, 0, null);
+
+        // 清理资源
+        g2d.dispose();
+
+        return rotated;
+    }
+
+    public static BufferedImage rotateImageFromTopLeft(BufferedImage original, double angleDegrees) {
+        // 将角度转换为弧度
+        double radians = Math.toRadians(angleDegrees);
+
+        // 计算旋转后的新尺寸（避免裁剪）
+        double sin = Math.abs(Math.sin(radians));
+        double cos = Math.abs(Math.cos(radians));
+        int newWidth = (int) Math.round(original.getWidth() * cos + original.getHeight() * sin);
+        int newHeight = (int) Math.round(original.getWidth() * sin + original.getHeight() * cos);
+
+        // 创建新图像（保持原始图像类型）
+        int type = original.getTransparency() == BufferedImage.OPAQUE ?
+                BufferedImage.TYPE_INT_RGB : BufferedImage.TYPE_INT_ARGB;
+        BufferedImage rotated = new BufferedImage(newWidth, newHeight, type);
+
+        // 创建图形上下文
+        Graphics2D g2d = rotated.createGraphics();
+
+        // 设置渲染质量
+        g2d.setRenderingHint(
+                java.awt.RenderingHints.KEY_INTERPOLATION,
+                java.awt.RenderingHints.VALUE_INTERPOLATION_BILINEAR
+        );
+        g2d.setRenderingHint(
+                java.awt.RenderingHints.KEY_ANTIALIASING,
+                java.awt.RenderingHints.VALUE_ANTIALIAS_ON
+        );
+
+        // 应用变换：基于左上角旋转
+        AffineTransform transform = new AffineTransform();
+        transform.rotate(radians, 0, 0); // 旋转中心为左上角(0,0)
+        g2d.setTransform(transform);
+
+        // 绘制原始图像
+        g2d.drawImage(original, 0, 0, null);
+
+        // 清理资源
+        g2d.dispose();
+
+        return rotated;
+    }
+
+    /**
+     * 旋转图片
+     */
+    public static BufferedImage rotateImage(BufferedImage original, double angleDegrees) {
+        // 将角度转换为弧度
+        double radians = Math.toRadians(angleDegrees);
+        double sin = Math.abs(Math.sin(radians));
+        double cos = Math.abs(Math.cos(radians));
+
+        // 计算新画布尺寸（避免旋转后裁剪）
+        int newWidth = (int) Math.round(original.getWidth() * cos + original.getHeight() * sin);
+        int newHeight = (int) Math.round(original.getWidth() * sin + original.getHeight() * cos);
+
+        // 创建新画布（带透明度支持）
+        BufferedImage rotated = new BufferedImage(
+                newWidth,
+                newHeight,
+                BufferedImage.TYPE_INT_ARGB
+        );
+
+        // 获取图形上下文
+        Graphics2D g2d = rotated.createGraphics();
+
+        // 设置渲染质量
+        g2d.setRenderingHint(
+                RenderingHints.KEY_INTERPOLATION,
+                RenderingHints.VALUE_INTERPOLATION_BILINEAR
+        );
+
+        // 计算旋转中心（新画布中心）
+        int centerX = newWidth / 2;
+        int centerY = newHeight / 2;
+
+        // 移动坐标系到中心点
+        AffineTransform at = new AffineTransform();
+        at.translate(centerX, centerY);
+        at.rotate(radians);
+        // 调整绘制位置（使原图中心对准坐标系原点）
+        at.translate(-original.getWidth() / 2, -original.getHeight() / 2);
+
+        // 应用变换
+        g2d.setTransform(at);
+
+        // 绘制图像
+        g2d.drawImage(original, 0, 0, null);
+
+        // 释放资源
+        g2d.dispose();
+
+        return rotated;
+    }
+
+
+    private double angle = 0;
+
+    private double scaleX = 0;
 
     /**
      * z index 值
@@ -164,4 +333,66 @@ public class Image extends Drawable {
         return createQrCode(content, width, height, 2);
     }
 
+
+    public static void main(String[] args) {
+        // 指定测试图片路径
+        String inputPath = "downloads/82f3551664c08202fc7bcbf5b99b132b.png";
+        String outputPath = "rotated_image.png";
+
+        try {
+            // 1. 加载测试图片
+            System.out.println("正在加载图片: " + inputPath);
+            File inputFile = new File(inputPath);
+            BufferedImage original = ImageIO.read(inputFile);
+
+            if (original == null) {
+                System.err.println("无法加载图片，请检查路径: " + inputPath);
+                return;
+            }
+
+            System.out.println("图片加载成功! 尺寸: " + original.getWidth() + "x" + original.getHeight());
+
+            // 2. 测试多个旋转角度
+            double[] testAngles = {0, 45, 90, 180, 270, 15, -30};
+
+            for (double angle : testAngles) {
+                String angleOutputPath = getAngleOutputPath(outputPath, angle);
+                System.out.println("\n旋转角度: " + angle + "°");
+
+                // 3. 执行旋转
+                long startTime = System.currentTimeMillis();
+                BufferedImage rotated = rotateImage(original, angle);
+                long duration = System.currentTimeMillis() - startTime;
+
+                // 4. 保存结果
+                File outputFile = new File(angleOutputPath);
+                ImageIO.write(rotated, "PNG", outputFile);
+
+                System.out.println("旋转完成! 耗时: " + duration + "ms");
+                System.out.println("新尺寸: " + rotated.getWidth() + "x" + rotated.getHeight());
+                System.out.println("结果已保存: " + angleOutputPath);
+            }
+
+            System.out.println("\n所有旋转测试完成!");
+
+        } catch (Exception e) {
+            System.err.println("处理过程中发生错误:");
+            e.printStackTrace();
+        }
+    }
+
+    // 为不同角度生成不同的输出文件名
+    private static String getAngleOutputPath(String basePath, double angle) {
+        // 提取文件名和扩展名
+        int dotIndex = basePath.lastIndexOf('.');
+        String name = (dotIndex == -1) ? basePath : basePath.substring(0, dotIndex);
+        String ext = (dotIndex == -1) ? "" : basePath.substring(dotIndex);
+
+        // 格式化角度值
+        String angleStr = String.valueOf(angle)
+                .replace("-", "neg")
+                .replace(".", "p");
+
+        return name + "_" + angleStr + "deg" + ext;
+    }
 }

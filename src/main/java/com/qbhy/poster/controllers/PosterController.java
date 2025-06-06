@@ -135,6 +135,8 @@ public class PosterController {
                     image.setUrl(item.getSrc());
                     image.setX(NumberUtils.convert(item.getLeft(), NumberUtils.ROUND, 0));
                     image.setY(NumberUtils.convert(item.getTop(), NumberUtils.ROUND, 0));
+                    image.setAngle(Math.round(item.getAngle()));
+                    image.setScaleX(item.getScaleX());
                     images.add(image);
                     break;
             }
@@ -153,7 +155,7 @@ public class PosterController {
 //        读取图片
             BufferedImage image = ImageIO.read(new FileInputStream(file));
 
-//            ImageSaver.saveToCurrentDir(image, "png", "demo");
+            ImageSaver.saveToCurrentDir(image, "png", "demo");
 
             response.setContentType("image/png");
             os = response.getOutputStream();

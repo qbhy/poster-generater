@@ -6,3 +6,4 @@ poster.iml
 /src/main/resources/application.properties
 /application.properties
 demo
+*.png
